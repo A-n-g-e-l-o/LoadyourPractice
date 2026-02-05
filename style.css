@@ -1,0 +1,19 @@
+.theme-default {
+    background-color: #fff;
+    color: #000;
+}
+
+.theme-slate {
+    background-color: #7A9BBA;
+    color: #fff;
+}
+
+.theme-forest {
+    background-color: #2E3A26;
+    color: #B8D99E;
+}
+
+.theme-sunset {
+    background-color: #FF5D3B;
+    color: #fff;
+}
