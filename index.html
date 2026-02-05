@@ -36,6 +36,15 @@
             <span>Random volgorde</span>
           </label>
         </div>
+        <div class="test-mode-section">
+          <h3>Test Modus</h3>
+          <p>Start een oefenexamen met een vast aantal vragen</p>
+          <div class="test-mode-buttons">
+            <button id="startTest30" type="button" class="test-btn">30 vragen</button>
+            <button id="startTest60" type="button" class="test-btn">60 vragen</button>
+            <button id="startTest80" type="button" class="test-btn">80 vragen</button>
+          </div>
+        </div>
       </section>
 
       <section class="question-area" aria-live="polite">
@@ -51,9 +60,19 @@
           <button id="checkAnswer" type="button">Controleer antwoord</button>
           <button id="prevQuestion" type="button">Vorige 5</button>
           <button id="nextQuestion" type="button">Volgende 5</button>
+          <button id="finishTest" type="button" style="display: none;">Beëindig Test</button>
         </div>
 
         <div id="feedback" class="feedback" role="status"></div>
+      </section>
+
+      <section id="testResultsSection" class="test-results-section" style="display: none;">
+        <h2>Test Resultaten</h2>
+        <div id="testResults" class="test-results"></div>
+        <div class="test-actions">
+          <button id="startNewTest" type="button">Nieuw Test</button>
+          <button id="returnToPractice" type="button">Terug naar Oefenmodus</button>
+        </div>
       </section>
 
       <section class="score-area">

@@ -21,9 +21,18 @@ const historyPanel = document.getElementById('historyPanel');
 const historyList = document.getElementById('historyList');
 const clearHistoryBtn = document.getElementById('clearHistory');
 const resetSessionBtn = document.getElementById('resetSession');
+const startTest30Btn = document.getElementById('startTest30');
+const startTest60Btn = document.getElementById('startTest60');
+const startTest80Btn = document.getElementById('startTest80');
+const finishTestBtn = document.getElementById('finishTest');
+const testResultsSection = document.getElementById('testResultsSection');
+const testResults = document.getElementById('testResults');
+const startNewTestBtn = document.getElementById('startNewTest');
+const returnToPracticeBtn = document.getElementById('returnToPractice');
 
 const HISTORY_KEY = 'loadyourpractice-history';
 const RANDOM_KEY = 'loadyourpractice-random';
+const ASKED_QUESTIONS_KEY = 'loadyourpractice-asked-questions';
 
 let questions = [];
 let baseQuestions = [];
@@ -33,6 +42,9 @@ let answers = new Map();
 let score = { correct: 0, incorrect: 0, total: 0 };
 let history = [];
 let currentFileName = '';
+let testMode = false;
+let testQuestionCount = 0;
+let askedQuestions = new Set();
 
 const stripPrefix = (line) => line.replace(/^[\s\d\|]+/, '').trim();
 
@@ -196,6 +208,19 @@ const saveHistory = () => {
   localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
 };
 
+const loadAskedQuestions = () => {
+  try {
+    const stored = localStorage.getItem(ASKED_QUESTIONS_KEY);
+    return stored ? new Set(JSON.parse(stored)) : new Set();
+  } catch (error) {
+    return new Set();
+  }
+};
+
+const saveAskedQuestions = () => {
+  localStorage.setItem(ASKED_QUESTIONS_KEY, JSON.stringify([...askedQuestions]));
+};
+
 const renderHistory = () => {
   if (!historyList) return;
   historyList.innerHTML = '';
@@ -240,17 +265,145 @@ const shuffleQuestions = (list) => {
   return array;
 };
 
+const startTestMode = (questionCount) => {
+  if (!baseQuestions.length) {
+    updateStatus('Laad eerst een vragenbestand.');
+    return;
+  }
+
+  if (baseQuestions.length < questionCount) {
+    updateStatus(`Niet genoeg vragen. Er zijn slechts ${baseQuestions.length} vragen beschikbaar.`);
+    return;
+  }
+
+  testMode = true;
+  testQuestionCount = questionCount;
+
+  // Filter out previously asked questions if possible
+  const availableQuestions = baseQuestions.filter(q => !askedQuestions.has(q.number));
+  
+  let questionsPool;
+  if (availableQuestions.length >= questionCount) {
+    questionsPool = availableQuestions;
+  } else {
+    // If not enough new questions, use all questions and clear history
+    questionsPool = baseQuestions;
+    if (availableQuestions.length > 0) {
+      updateStatus(`Niet genoeg nieuwe vragen. Gebruik maken van ${availableQuestions.length} nieuwe en ${questionCount - availableQuestions.length} eerdere vragen.`);
+    }
+  }
+
+  // Randomly select questions
+  const shuffled = shuffleQuestions(questionsPool);
+  questions = shuffled.slice(0, questionCount);
+
+  // Mark these questions as asked
+  questions.forEach(q => askedQuestions.add(q.number));
+  saveAskedQuestions();
+
+  // Reset state for test
+  currentIndex = 0;
+  answers = new Map();
+  score = { correct: 0, incorrect: 0, total: 0 };
+  questionsPerPage = 5; // Keep batch viewing
+  updateScorePanel();
+  
+  // Update UI
+  finishTestBtn.style.display = 'inline-block';
+  testResultsSection.style.display = 'none';
+  
+  renderQuestion();
+  updateStatus(`Test modus gestart: ${questionCount} vragen`);
+};
+
+const finishTest = () => {
+  if (!testMode) return;
+
+  // Check if all questions are answered
+  const unansweredCount = questions.filter(q => !answers.has(q.number) || !answers.get(q.number).checked).length;
+  
+  if (unansweredCount > 0) {
+    feedbackEl.textContent = `U heeft nog ${unansweredCount} vraag/vragen niet beantwoord. Beantwoord alle vragen voordat u de test beëindigt.`;
+    feedbackEl.className = 'feedback warning';
+    return;
+  }
+
+  // Calculate final results
+  showTestResults();
+};
+
+const showTestResults = () => {
+  // Hide question area, show results
+  document.querySelector('.question-area').style.display = 'none';
+  testResultsSection.style.display = 'block';
+  finishTestBtn.style.display = 'none';
+
+  const totalQuestions = questions.length;
+  const correctAnswers = score.correct;
+  const incorrectAnswers = score.incorrect;
+  
+  // Calculate pass/fail based on official criteria
+  // For 80 questions: max 15 wrong = pass (65+ correct)
+  // Scale proportionally for other test sizes
+  const maxWrongAllowed = Math.floor((15 / 80) * totalQuestions);
+  const minCorrectRequired = totalQuestions - maxWrongAllowed;
+  const passed = correctAnswers >= minCorrectRequired;
+  
+  const percentage = ((correctAnswers / totalQuestions) * 100).toFixed(1);
+
+  // Generate results HTML
+  let resultsHTML = `
+    <div class="${passed ? 'pass' : 'fail'}">
+      ${passed ? '✓ GESLAAGD' : '✗ GEZAKT'}
+    </div>
+    <div class="result-item">
+      <strong>Totaal vragen:</strong> ${totalQuestions}
+    </div>
+    <div class="result-item">
+      <strong>Goed beantwoord:</strong> ${correctAnswers}
+    </div>
+    <div class="result-item">
+      <strong>Fout beantwoord:</strong> ${incorrectAnswers}
+    </div>
+    <div class="result-item">
+      <strong>Score:</strong> ${percentage}%
+    </div>
+    <div class="result-item">
+      <strong>Minimaal vereist om te slagen:</strong> ${minCorrectRequired} goed (max ${maxWrongAllowed} fout)
+    </div>
+  `;
+
+  testResults.innerHTML = resultsHTML;
+
+  // Add to history
+  addHistoryEntry();
+};
+
+const exitTestMode = () => {
+  testMode = false;
+  testQuestionCount = 0;
+  finishTestBtn.style.display = 'none';
+  testResultsSection.style.display = 'none';
+  document.querySelector('.question-area').style.display = 'block';
+  
+  // Reset to practice mode
+  applyQuestionOrder();
+};
+
 const applyQuestionOrder = () => {
   if (!baseQuestions.length) {
     questions = [];
     return;
   }
-  questions = randomToggle?.checked ? shuffleQuestions(baseQuestions) : [...baseQuestions];
-  currentIndex = 0;
-  answers = new Map();
-  score = { correct: 0, incorrect: 0, total: 0 };
-  updateScorePanel();
-  renderQuestion();
+  // Only apply if not in test mode - test mode has its own question selection
+  if (!testMode) {
+    questions = randomToggle?.checked ? shuffleQuestions(baseQuestions) : [...baseQuestions];
+    currentIndex = 0;
+    answers = new Map();
+    score = { correct: 0, incorrect: 0, total: 0 };
+    updateScorePanel();
+    renderQuestion();
+  }
 };
 
 const resetSession = () => {
@@ -276,10 +429,11 @@ const renderQuestion = () => {
   const questionsToShow = questions.slice(startIdx, endIdx);
 
   // Update progress indicator
-  questionProgress.textContent = `${startIdx + 1}-${endIdx} / ${questions.length}`;
+  const modeText = testMode ? ' (TEST MODUS)' : '';
+  questionProgress.textContent = `${startIdx + 1}-${endIdx} / ${questions.length}${modeText}`;
 
   // Clear previous content
-  questionTitle.textContent = `Vragen ${startIdx + 1}-${endIdx}`;
+  questionTitle.textContent = testMode ? `Test - Vragen ${startIdx + 1}-${endIdx}` : `Vragen ${startIdx + 1}-${endIdx}`;
   questionText.textContent = '';
   optionsForm.innerHTML = '';
   feedbackEl.textContent = '';
@@ -535,8 +689,35 @@ loadSample.addEventListener('click', async () => {
   }
 });
 
+startTest30Btn?.addEventListener('click', () => {
+  startTestMode(30);
+});
+
+startTest60Btn?.addEventListener('click', () => {
+  startTestMode(60);
+});
+
+startTest80Btn?.addEventListener('click', () => {
+  startTestMode(80);
+});
+
+finishTestBtn?.addEventListener('click', () => {
+  finishTest();
+});
+
+startNewTestBtn?.addEventListener('click', () => {
+  exitTestMode();
+  testResultsSection.style.display = 'none';
+  document.querySelector('.question-area').style.display = 'block';
+});
+
+returnToPracticeBtn?.addEventListener('click', () => {
+  exitTestMode();
+});
+
 configurePdfWorker();
 
+askedQuestions = loadAskedQuestions();
 history = loadHistory();
 if (randomToggle) {
   const storedRandom = localStorage.getItem(RANDOM_KEY);
