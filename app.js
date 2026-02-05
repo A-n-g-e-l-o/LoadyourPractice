@@ -39,8 +39,9 @@ const normalizeQuestionText = (text) => {
   let normalized = text.replace(/\r\n/g, '\n');
   normalized = normalized.replace(/QUESTION\s*(\d+)/gi, '\nQUESTION $1\n');
   normalized = normalized.replace(/Correct Answer\s*:\s*/gi, '\nCorrect Answer: ');
-  normalized = normalized.replace(/\b([A-Z])\s*/g, '\n$1. ');
-  return normalized;
+  normalized = normalized.replace(/\s([A-Z])\./g, '\n$1.');
+  normalized = normalized.replace(/\n{3,}/g, '\n\n');
+  return normalized.trim();
 };
 
 const parseQuestions = (text) => {
@@ -54,7 +55,7 @@ const parseQuestions = (text) => {
       current.text = current.text.join(' ').replace(/\s+/g, ' ').trim();
       result.push(current);
     }
-  };  
+  };
 
   for (const rawLine of lines) {
     const line = rawLine.trim();
@@ -189,7 +190,7 @@ const renderHistory = () => {
     const item = document.createElement('li');
     const dateText = new Date(entry.date).toLocaleString();
     const fileText = entry.file ? ` • ${entry.file}` : '';
-    item.textContent = ` ${dateText} • ${entry.correct}/${entry.total} goed${fileText}`;
+    item.textContent = `${dateText} • ${entry.correct}/${entry.total} goed${fileText}`;
     historyList.appendChild(item);
   });
 };
