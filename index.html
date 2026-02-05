@@ -29,6 +29,12 @@
         <input id="fileInput" type="file" accept=".psm1,.txt" />
         <button id="loadSample" type="button">Gebruik voorbeeldbestand</button>
         <p class="status" id="status">Nog geen bestand geladen.</p>
+        <div class="settings">
+          <label class="toggle">
+            <input id="randomToggle" type="checkbox" />
+            <span>Random volgorde</span>
+          </label>
+        </div>
       </section>
 
       <section class="question-area" aria-live="polite">
@@ -50,11 +56,19 @@
       </section>
 
       <section class="score-area">
-        <button id="toggleScore" type="button">Toon score</button>
+        <div class="score-actions">
+          <button id="toggleScore" type="button">Toon score</button>
+          <button id="toggleHistory" type="button">Toon geschiedenis</button>
+          <button id="resetSession" type="button">Reset sessie</button>
+        </div>
         <div id="scorePanel" class="score-panel" hidden>
           <p><strong>Totaal goed:</strong> <span id="scoreCorrect">0</span></p>
           <p><strong>Totaal fout:</strong> <span id="scoreIncorrect">0</span></p>
           <p><strong>Beantwoord:</strong> <span id="scoreTotal">0</span></p>
+        </div>
+        <div id="historyPanel" class="history-panel" hidden>
+          <ul id="historyList"></ul>
+          <button id="clearHistory" type="button">Wis geschiedenis</button>
         </div>
       </section>
     </main>
