@@ -110,6 +110,48 @@ const updateScorePanel = () => {
   scoreTotal.textContent = score.total;
 };
 
+const configurePdfWorker = () => {
+  if (window.pdfjsLib?.GlobalWorkerOptions) {
+    window.pdfjsLib.GlobalWorkerOptions.workerSrc =
+      'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+  }
+};
+
+const readFileAsText = (file) =>
+  new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = () => reject(reader.error);
+    reader.readAsText(file);
+  });
+
+const readPdfText = async (file) => {
+  if (!window.pdfjsLib) {
+    throw new Error('PDF.js is not available.');
+  }
+  const arrayBuffer = await file.arrayBuffer();
+  const pdf = await window.pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+  let text = '';
+
+  for (let pageNumber = 1; pageNumber <= pdf.numPages; pageNumber += 1) {
+    const page = await pdf.getPage(pageNumber);
+    const content = await page.getTextContent();
+    const pageText = content.items.map((item) => item.str).join(' ');
+    text += `${pageText}\n`;
+  }
+
+  return text;
+};
+
+const readDocxText = async (file) => {
+  if (!window.mammoth) {
+    throw new Error('Mammoth is not available.');
+  }
+  const arrayBuffer = await file.arrayBuffer();
+  const result = await window.mammoth.extractRawText({ arrayBuffer });
+  return result.value;
+};
+
 const loadHistory = () => {
   try {
     return JSON.parse(localStorage.getItem(HISTORY_KEY)) || [];
@@ -265,6 +307,35 @@ const updateScore = (question, wasCorrect, isCorrect) => {
   }
 };
 
+const loadQuestionsFromText = (text, fileName) => {
+  baseQuestions = parseQuestions(text);
+  currentFileName = fileName;
+  applyQuestionOrder();
+  updateStatus(`Geladen: ${fileName} (${baseQuestions.length} vragen)`);
+};
+
+const loadQuestionsFromFile = async (file) => {
+  const extension = file.name.split('.').pop().toLowerCase();
+  updateStatus(`Bezig met laden van ${file.name}...`);
+
+  try {
+    let text = '';
+
+    if (extension === 'pdf') {
+      text = await readPdfText(file);
+    } else if (extension === 'docx') {
+      text = await readDocxText(file);
+    } else {
+      text = await readFileAsText(file);
+    }
+
+    loadQuestionsFromText(text, file.name);
+  } catch (error) {
+    console.error(error);
+    updateStatus('Kon bestand niet laden.');
+  }
+};
+
 checkAnswerBtn.addEventListener('click', () => {
   if (!questions.length) return;
   const question = questions[currentIndex];
@@ -346,18 +417,11 @@ randomToggle?.addEventListener('change', () => {
   );
 });
 
-fileInput.addEventListener('change', (event) => {
+fileInput.addEventListener('change', async (event) => {
   const file = event.target.files[0];
   if (!file) return;
   addHistoryEntry();
-  const reader = new FileReader();
-  reader.onload = () => {
-    baseQuestions = parseQuestions(reader.result);
-    currentFileName = file.name;
-    applyQuestionOrder();
-    updateStatus(`Geladen: ${file.name} (${baseQuestions.length} vragen)`);
-  };
-  reader.readAsText(file);
+  await loadQuestionsFromFile(file);
 });
 
 loadSample.addEventListener('click', async () => {
@@ -365,14 +429,13 @@ loadSample.addEventListener('click', async () => {
     addHistoryEntry();
     const response = await fetch('sample.psm1');
     const text = await response.text();
-    baseQuestions = parseQuestions(text);
-    currentFileName = 'sample.psm1';
-    applyQuestionOrder();
-    updateStatus(`Geladen: sample.psm1 (${baseQuestions.length} vragen)`);
+    loadQuestionsFromText(text, 'sample.psm1');
   } catch (error) {
     updateStatus('Kon sample.psm1 niet laden.');
   }
 });
+
+configurePdfWorker();
 
 history = loadHistory();
 if (randomToggle) {
