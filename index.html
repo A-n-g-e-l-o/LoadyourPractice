@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="nl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>LoadyourPractice</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body class="theme-default">
+    <header class="app-header">
+      <div>
+        <h1>LoadyourPractice</h1>
+        <p>Dynamische oefenexamens met score tracking.</p>
+      </div>
+      <div class="theme-switcher" role="group" aria-label="Thema kiezen">
+        <button type="button" class="theme-btn" data-theme="theme-default">Default</button>
+        <button type="button" class="theme-btn" data-theme="theme-slate">Slate</button>
+        <button type="button" class="theme-btn" data-theme="theme-forest">Forest</button>
+        <button type="button" class="theme-btn" data-theme="theme-sunset">Sunset</button>
+      </div>
+    </header>
+
+    <main class="app">
+      <section class="loader">
+        <h2>Laad oefenmateriaal</h2>
+        <p>
+          Kies een bestand met het formaat zoals in <strong>scrum_exam_questions.psm1</strong>.
+        </p>
+        <input id="fileInput" type="file" accept=".psm1,.txt" />
+        <button id="loadSample" type="button">Gebruik voorbeeldbestand</button>
+        <p class="status" id="status">Nog geen bestand geladen.</p>
+      </section>
+
+      <section class="question-area" aria-live="polite">
+        <div class="question-header">
+          <h2 id="questionTitle">Vraag verschijnt hier</h2>
+          <span id="questionProgress">0 / 0</span>
+        </div>
+        <p id="questionText">Laad eerst een bestand.</p>
+
+        <form id="optionsForm" class="options"></form>
+
+        <div class="actions">
+          <button id="checkAnswer" type="button">Controleer antwoord</button>
+          <button id="nextQuestion" type="button">Volgende</button>
+          <button id="prevQuestion" type="button">Vorige</button>
+        </div>
+
+        <div id="feedback" class="feedback" role="status"></div>
+      </section>
+
+      <section class="score-area">
+        <button id="toggleScore" type="button">Toon score</button>
+        <div id="scorePanel" class="score-panel" hidden>
+          <p><strong>Totaal goed:</strong> <span id="scoreCorrect">0</span></p>
+          <p><strong>Totaal fout:</strong> <span id="scoreIncorrect">0</span></p>
+          <p><strong>Beantwoord:</strong> <span id="scoreTotal">0</span></p>
+        </div>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
