@@ -28,6 +28,7 @@ const RANDOM_KEY = 'loadyourpractice-random';
 let questions = [];
 let baseQuestions = [];
 let currentIndex = 0;
+let questionsPerPage = 5;
 let answers = new Map();
 let score = { correct: 0, incorrect: 0, total: 0 };
 let history = [];
@@ -163,6 +164,26 @@ const readDocxText = async (file) => {
   return result.value;
 };
 
+const readRtfText = async (file) => {
+  // RTF files can be read as text and then we'll strip RTF formatting
+  const text = await readFileAsText(file);
+  // Basic RTF stripping - remove control words and groups
+  let cleaned = text
+    .replace(/\\[a-z]+[0-9-]* ?/gi, ' ') // Remove control words
+    .replace(/[{}]/g, '') // Remove braces
+    .replace(/\\\\/g, '\\') // Unescape backslashes
+    .replace(/\\'[0-9a-f]{2}/gi, ' ') // Remove hex codes
+    .replace(/\s+/g, ' ') // Normalize whitespace
+    .trim();
+  return cleaned;
+};
+
+const readRtfdText = async (file) => {
+  // .rtfd is a macOS bundle format (directory), but when uploaded as a file,
+  // it's typically the main RTF file inside. Treat it like RTF.
+  return readRtfText(file);
+};
+
 const loadHistory = () => {
   try {
     return JSON.parse(localStorage.getItem(HISTORY_KEY)) || [];
@@ -249,47 +270,85 @@ const renderQuestion = () => {
     return;
   }
 
-  const question = questions[currentIndex];
-  questionTitle.textContent = `Vraag ${question.number}`;
-  questionText.textContent = question.text || 'Geen vraagtekst gevonden.';
-  questionProgress.textContent = `${currentIndex + 1} / ${questions.length}`;
+  // Calculate the range of questions to display
+  const startIdx = currentIndex;
+  const endIdx = Math.min(startIdx + questionsPerPage, questions.length);
+  const questionsToShow = questions.slice(startIdx, endIdx);
+
+  // Update progress indicator
+  questionProgress.textContent = `${startIdx + 1}-${endIdx} / ${questions.length}`;
+
+  // Clear previous content
+  questionTitle.textContent = `Vragen ${startIdx + 1}-${endIdx}`;
+  questionText.textContent = '';
+  optionsForm.innerHTML = '';
   feedbackEl.textContent = '';
 
-  const existing = answers.get(question.number);
-  const isMulti = question.correct.length > 1;
-  optionsForm.innerHTML = '';
-
-  question.options.forEach((option) => {
-    const wrapper = document.createElement('label');
-    wrapper.className = 'option';
-
-    const input = document.createElement('input');
-    input.type = isMulti ? 'checkbox' : 'radio';
-    input.name = 'option';
-    input.value = option.label;
-
-    if (existing?.selected?.includes(option.label)) {
-      input.checked = true;
+  // Render each question in the batch
+  questionsToShow.forEach((question, idx) => {
+    const questionWrapper = document.createElement('div');
+    questionWrapper.className = 'question-block';
+    questionWrapper.style.marginBottom = '2rem';
+    questionWrapper.style.paddingBottom = '1.5rem';
+    if (idx < questionsToShow.length - 1) {
+      questionWrapper.style.borderBottom = '1px solid var(--border)';
     }
 
-    const span = document.createElement('span');
-    span.textContent = `${option.label}. ${option.value}`;
+    // Question title
+    const qTitle = document.createElement('h3');
+    qTitle.textContent = `Vraag ${question.number}`;
+    qTitle.style.marginTop = '0';
+    questionWrapper.appendChild(qTitle);
 
-    wrapper.appendChild(input);
-    wrapper.appendChild(span);
-    optionsForm.appendChild(wrapper);
+    // Question text
+    const qText = document.createElement('p');
+    qText.textContent = question.text || 'Geen vraagtekst gevonden.';
+    qText.style.marginBottom = '1rem';
+    questionWrapper.appendChild(qText);
+
+    // Options
+    const existing = answers.get(question.number);
+    const isMulti = question.correct.length > 1;
+
+    question.options.forEach((option) => {
+      const wrapper = document.createElement('label');
+      wrapper.className = 'option';
+
+      const input = document.createElement('input');
+      input.type = isMulti ? 'checkbox' : 'radio';
+      input.name = `option-${question.number}`;
+      input.value = option.label;
+      input.dataset.questionNumber = question.number;
+
+      if (existing?.selected?.includes(option.label)) {
+        input.checked = true;
+      }
+
+      const span = document.createElement('span');
+      span.textContent = `${option.label}. ${option.value}`;
+
+      wrapper.appendChild(input);
+      wrapper.appendChild(span);
+      questionWrapper.appendChild(wrapper);
+    });
+
+    // Feedback for this specific question
+    if (existing?.checked) {
+      const qFeedback = document.createElement('div');
+      qFeedback.className = existing.correct ? 'feedback success' : 'feedback error';
+      qFeedback.textContent = existing.correct
+        ? 'Correct!'
+        : `Onjuist. Juiste antwoord: ${question.correct.join(', ')}`;
+      qFeedback.style.marginTop = '0.5rem';
+      questionWrapper.appendChild(qFeedback);
+    }
+
+    optionsForm.appendChild(questionWrapper);
   });
-
-  if (existing?.checked) {
-    feedbackEl.textContent = existing.correct
-      ? 'Correct!'
-      : `Onjuist. Juiste antwoord: ${question.correct.join(', ')}`;
-    feedbackEl.className = existing.correct ? 'feedback success' : 'feedback error';
-  }
 };
 
-const getSelectedAnswers = () => {
-  const selected = Array.from(optionsForm.querySelectorAll('input:checked'))
+const getSelectedAnswers = (questionNumber) => {
+  const selected = Array.from(optionsForm.querySelectorAll(`input[data-question-number="${questionNumber}"]:checked`))
     .map((input) => input.value)
     .sort();
   return selected;
@@ -343,6 +402,10 @@ const loadQuestionsFromFile = async (file) => {
       text = await readPdfText(file);
     } else if (extension === 'docx') {
       text = await readDocxText(file);
+    } else if (extension === 'rtf') {
+      text = await readRtfText(file);
+    } else if (extension === 'rtfd') {
+      text = await readRtfdText(file);
     } else {
       text = await readFileAsText(file);
     }
@@ -356,42 +419,60 @@ const loadQuestionsFromFile = async (file) => {
 
 checkAnswerBtn.addEventListener('click', () => {
   if (!questions.length) return;
-  const question = questions[currentIndex];
-  const selected = getSelectedAnswers();
-  if (!selected.length) {
-    feedbackEl.textContent = 'Selecteer eerst een antwoord.';
+
+  // Calculate the range of questions currently displayed
+  const startIdx = currentIndex;
+  const endIdx = Math.min(startIdx + questionsPerPage, questions.length);
+  const questionsToCheck = questions.slice(startIdx, endIdx);
+
+  let hasUnanswered = false;
+  let allResults = [];
+
+  questionsToCheck.forEach((question) => {
+    const selected = getSelectedAnswers(question.number);
+    if (!selected.length) {
+      hasUnanswered = true;
+      return;
+    }
+
+    const isCorrect = compareAnswers(selected, question.correct);
+    const existing = answers.get(question.number);
+
+    updateScore(question, existing?.correct, isCorrect);
+
+    answers.set(question.number, {
+      selected,
+      correct: isCorrect,
+      checked: true
+    });
+
+    allResults.push({
+      questionNumber: question.number,
+      isCorrect
+    });
+  });
+
+  if (hasUnanswered) {
+    feedbackEl.textContent = 'Selecteer eerst een antwoord voor alle vragen.';
     feedbackEl.className = 'feedback warning';
     return;
   }
 
-  const isCorrect = compareAnswers(selected, question.correct);
-  const existing = answers.get(question.number);
-
-  updateScore(question, existing?.correct, isCorrect);
-
-  answers.set(question.number, {
-    selected,
-    correct: isCorrect,
-    checked: true
-  });
-
-  feedbackEl.textContent = isCorrect
-    ? 'Correct!'
-    : `Onjuist. Juiste antwoord: ${question.correct.join(', ')}`;
-  feedbackEl.className = isCorrect ? 'feedback success' : 'feedback error';
-
   updateScorePanel();
+  renderQuestion(); // Re-render to show feedback for each question
 });
 
 nextQuestionBtn.addEventListener('click', () => {
   if (!questions.length) return;
-  currentIndex = (currentIndex + 1) % questions.length;
+  currentIndex = Math.min(currentIndex + questionsPerPage, questions.length - 1);
+  // Align to the start of a batch
+  currentIndex = Math.floor(currentIndex / questionsPerPage) * questionsPerPage;
   renderQuestion();
 });
 
 prevQuestionBtn.addEventListener('click', () => {
   if (!questions.length) return;
-  currentIndex = (currentIndex - 1 + questions.length) % questions.length;
+  currentIndex = Math.max(currentIndex - questionsPerPage, 0);
   renderQuestion();
 });
 

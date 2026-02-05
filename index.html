@@ -25,9 +25,9 @@
         <h2>Laad oefenmateriaal</h2>
         <p>
           Kies een bestand met het formaat zoals in <strong>scrum_exam_questions.psm1</strong>.
-          Ondersteund: <strong>.psm1</strong>, <strong>.txt</strong>, <strong>.pdf</strong>, <strong>.docx</strong>.
+          Ondersteund: <strong>.psm1</strong>, <strong>.txt</strong>, <strong>.pdf</strong>, <strong>.docx</strong>, <strong>.rtf</strong>, <strong>.rtfd</strong>.
         </p>
-        <input id="fileInput" type="file" accept=".psm1,.txt,.pdf,.docx" />
+        <input id="fileInput" type="file" accept=".psm1,.txt,.pdf,.docx,.rtf,.rtfd" />
         <button id="loadSample" type="button">Gebruik voorbeeldbestand</button>
         <p class="status" id="status">Nog geen bestand geladen.</p>
         <div class="settings">
@@ -49,8 +49,8 @@
 
         <div class="actions">
           <button id="checkAnswer" type="button">Controleer antwoord</button>
-          <button id="nextQuestion" type="button">Volgende</button>
-          <button id="prevQuestion" type="button">Vorige</button>
+          <button id="prevQuestion" type="button">Vorige 5</button>
+          <button id="nextQuestion" type="button">Volgende 5</button>
         </div>
 
         <div id="feedback" class="feedback" role="status"></div>
