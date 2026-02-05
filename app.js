@@ -15,11 +15,23 @@ const scoreCorrect = document.getElementById('scoreCorrect');
 const scoreIncorrect = document.getElementById('scoreIncorrect');
 const scoreTotal = document.getElementById('scoreTotal');
 const themeButtons = document.querySelectorAll('.theme-btn');
+const randomToggle = document.getElementById('randomToggle');
+const toggleHistoryBtn = document.getElementById('toggleHistory');
+const historyPanel = document.getElementById('historyPanel');
+const historyList = document.getElementById('historyList');
+const clearHistoryBtn = document.getElementById('clearHistory');
+const resetSessionBtn = document.getElementById('resetSession');
+
+const HISTORY_KEY = 'loadyourpractice-history';
+const RANDOM_KEY = 'loadyourpractice-random';
 
 let questions = [];
+let baseQuestions = [];
 let currentIndex = 0;
 let answers = new Map();
 let score = { correct: 0, incorrect: 0, total: 0 };
+let history = [];
+let currentFileName = '';
 
 const stripPrefix = (line) => line.replace(/^[\s\d\|]+/, '').trim();
 
@@ -66,7 +78,7 @@ const parseQuestions = (text) => {
       continue;
     }
 
-    if (/^Choose\s+/i.test(line) || /^\-{2,}/.test(line)) {
+    if (/^Choose\s+/i.test(line) || /^-{2,}/.test(line)) {
       continue;
     }
 
@@ -96,6 +108,82 @@ const updateScorePanel = () => {
   scoreCorrect.textContent = score.correct;
   scoreIncorrect.textContent = score.incorrect;
   scoreTotal.textContent = score.total;
+};
+
+const loadHistory = () => {
+  try {
+    return JSON.parse(localStorage.getItem(HISTORY_KEY)) || [];
+  } catch (error) {
+    return [];
+  }
+};
+
+const saveHistory = () => {
+  localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
+};
+
+const renderHistory = () => {
+  if (!historyList) return;
+  historyList.innerHTML = '';
+
+  if (!history.length) {
+    const emptyItem = document.createElement('li');
+    emptyItem.textContent = 'Geen geschiedenis opgeslagen.';
+    historyList.appendChild(emptyItem);
+    return;
+  }
+
+  history.forEach((entry) => {
+    const item = document.createElement('li');
+    const dateText = new Date(entry.date).toLocaleString();
+    const fileText = entry.file ? ` • ${entry.file}` : '';
+    item.textContent = `${dateText} • ${entry.correct}/${entry.total} goed${fileText}`;
+    historyList.appendChild(item);
+  });
+};
+
+const addHistoryEntry = () => {
+  if (score.total === 0) return;
+  history.unshift({
+    date: new Date().toISOString(),
+    correct: score.correct,
+    incorrect: score.incorrect,
+    total: score.total,
+    file: currentFileName || 'Onbekend'
+  });
+
+  history = history.slice(0, 50);
+  saveHistory();
+  renderHistory();
+};
+
+const shuffleQuestions = (list) => {
+  const array = [...list];
+  for (let i = array.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+};
+
+const applyQuestionOrder = () => {
+  if (!baseQuestions.length) {
+    questions = [];
+    return;
+  }
+  questions = randomToggle?.checked ? shuffleQuestions(baseQuestions) : [...baseQuestions];
+  currentIndex = 0;
+  answers = new Map();
+  score = { correct: 0, incorrect: 0, total: 0 };
+  updateScorePanel();
+  renderQuestion();
+};
+
+const resetSession = () => {
+  answers = new Map();
+  score = { correct: 0, incorrect: 0, total: 0 };
+  updateScorePanel();
+  renderQuestion();
 };
 
 const renderQuestion = () => {
@@ -223,43 +311,76 @@ toggleScoreBtn.addEventListener('click', () => {
   toggleScoreBtn.textContent = scorePanel.hidden ? 'Toon score' : 'Verberg score';
 });
 
+toggleHistoryBtn?.addEventListener('click', () => {
+  historyPanel.hidden = !historyPanel.hidden;
+  toggleHistoryBtn.textContent = historyPanel.hidden
+    ? 'Toon geschiedenis'
+    : 'Verberg geschiedenis';
+});
+
+clearHistoryBtn?.addEventListener('click', () => {
+  history = [];
+  saveHistory();
+  renderHistory();
+});
+
+resetSessionBtn?.addEventListener('click', () => {
+  addHistoryEntry();
+  resetSession();
+});
+
 themeButtons.forEach((button) => {
   button.addEventListener('click', () => {
     document.body.className = button.dataset.theme;
   });
 });
 
+randomToggle?.addEventListener('change', () => {
+  localStorage.setItem(RANDOM_KEY, randomToggle.checked);
+  if (!baseQuestions.length) return;
+  applyQuestionOrder();
+  updateStatus(
+    randomToggle.checked
+      ? 'Random volgorde ingeschakeld.'
+      : 'Random volgorde uitgeschakeld.'
+  );
+});
+
 fileInput.addEventListener('change', (event) => {
   const file = event.target.files[0];
   if (!file) return;
+  addHistoryEntry();
   const reader = new FileReader();
   reader.onload = () => {
-    questions = parseQuestions(reader.result);
-    currentIndex = 0;
-    answers = new Map();
-    score = { correct: 0, incorrect: 0, total: 0 };
-    updateScorePanel();
-    updateStatus(`Geladen: ${file.name} (${questions.length} vragen)`);
-    renderQuestion();
+    baseQuestions = parseQuestions(reader.result);
+    currentFileName = file.name;
+    applyQuestionOrder();
+    updateStatus(`Geladen: ${file.name} (${baseQuestions.length} vragen)`);
   };
   reader.readAsText(file);
 });
 
 loadSample.addEventListener('click', async () => {
   try {
+    addHistoryEntry();
     const response = await fetch('sample.psm1');
     const text = await response.text();
-    questions = parseQuestions(text);
-    currentIndex = 0;
-    answers = new Map();
-    score = { correct: 0, incorrect: 0, total: 0 };
-    updateScorePanel();
-    updateStatus(`Geladen: sample.psm1 (${questions.length} vragen)`);
-    renderQuestion();
+    baseQuestions = parseQuestions(text);
+    currentFileName = 'sample.psm1';
+    applyQuestionOrder();
+    updateStatus(`Geladen: sample.psm1 (${baseQuestions.length} vragen)`);
   } catch (error) {
     updateStatus('Kon sample.psm1 niet laden.');
   }
 });
 
+history = loadHistory();
+if (randomToggle) {
+  const storedRandom = localStorage.getItem(RANDOM_KEY);
+  if (storedRandom !== null) {
+    randomToggle.checked = storedRandom === 'true';
+  }
+}
+renderHistory();
 updateScorePanel();
 renderQuestion();
