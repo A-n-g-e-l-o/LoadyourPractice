@@ -464,9 +464,10 @@ checkAnswerBtn.addEventListener('click', () => {
 
 nextQuestionBtn.addEventListener('click', () => {
   if (!questions.length) return;
-  currentIndex = Math.min(currentIndex + questionsPerPage, questions.length - 1);
-  // Align to the start of a batch
+  currentIndex = currentIndex + questionsPerPage;
+  // Align to the start of a batch and clamp to valid range
   currentIndex = Math.floor(currentIndex / questionsPerPage) * questionsPerPage;
+  currentIndex = Math.min(currentIndex, Math.floor((questions.length - 1) / questionsPerPage) * questionsPerPage);
   renderQuestion();
 });
 
