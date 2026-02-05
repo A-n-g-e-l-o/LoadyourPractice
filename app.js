@@ -35,6 +35,14 @@ let currentFileName = '';
 
 const stripPrefix = (line) => line.replace(/^[\s\d\|]+/, '').trim();
 
+const normalizeQuestionText = (text) => {
+  let normalized = text.replace(/\r\n/g, '\n');
+  normalized = normalized.replace(/QUESTION\s*(\d+)/gi, '\nQUESTION $1\n');
+  normalized = normalized.replace(/Correct Answer\s*:\s*/gi, '\nCorrect Answer: ');
+  normalized = normalized.replace(/\b([A-Z])\s*/g, '\n$1. ');
+  return normalized;
+};
+
 const parseQuestions = (text) => {
   const lines = text.split(/\r?\n/).map(stripPrefix);
   const result = [];
@@ -46,7 +54,7 @@ const parseQuestions = (text) => {
       current.text = current.text.join(' ').replace(/\s+/g, ' ').trim();
       result.push(current);
     }
-  };
+  };  
 
   for (const rawLine of lines) {
     const line = rawLine.trim();
@@ -136,7 +144,9 @@ const readPdfText = async (file) => {
   for (let pageNumber = 1; pageNumber <= pdf.numPages; pageNumber += 1) {
     const page = await pdf.getPage(pageNumber);
     const content = await page.getTextContent();
-    const pageText = content.items.map((item) => item.str).join(' ');
+    const pageText = content.items
+      .map((item) => `${item.str}${item.hasEOL ? '\n' : ' '}`)
+      .join('');
     text += `${pageText}\n`;
   }
 
@@ -179,7 +189,7 @@ const renderHistory = () => {
     const item = document.createElement('li');
     const dateText = new Date(entry.date).toLocaleString();
     const fileText = entry.file ? ` • ${entry.file}` : '';
-    item.textContent = `${dateText} • ${entry.correct}/${entry.total} goed${fileText}`;
+    item.textContent = ` ${dateText} • ${entry.correct}/${entry.total} goed${fileText}`;
     historyList.appendChild(item);
   });
 };
@@ -308,9 +318,16 @@ const updateScore = (question, wasCorrect, isCorrect) => {
 };
 
 const loadQuestionsFromText = (text, fileName) => {
-  baseQuestions = parseQuestions(text);
+  const normalizedText = normalizeQuestionText(text);
+  baseQuestions = parseQuestions(normalizedText);
   currentFileName = fileName;
   applyQuestionOrder();
+
+  if (!baseQuestions.length) {
+    updateStatus(`Geen vragen gevonden in ${fileName}. Controleer het formaat.`);
+    return;
+  }
+
   updateStatus(`Geladen: ${fileName} (${baseQuestions.length} vragen)`);
 };
 
