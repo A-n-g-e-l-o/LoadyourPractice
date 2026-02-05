@@ -29,17 +29,17 @@ body {
   color: var(--muted);
 }
 
-theme-switcher {
+.theme-switcher {
   display: flex;
   gap: 0.5rem;
   flex-wrap: wrap;
 }
 
-theme-btn,
+.theme-btn,
 .actions button,
 .score-actions button,
 .loader button,
-history-panel button {
+.history-panel button {
   border: 1px solid var(--border);
   background: var(--card);
   color: var(--text);
@@ -48,11 +48,11 @@ history-panel button {
   cursor: pointer;
 }
 
-theme-btn:hover,
+.theme-btn:hover,
 .actions button:hover,
 .score-actions button:hover,
 .loader button:hover,
-history-panel button:hover {
+.history-panel button:hover {
   border-color: var(--accent);
   color: var(--accent);
 }
@@ -82,7 +82,7 @@ section {
   margin-top: 1rem;
 }
 
-toggle {
+.toggle {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
@@ -158,7 +158,7 @@ toggle {
   gap: 0.5rem;
 }
 
-theme-default {
+.theme-default {
   --bg: #f4f5f8;
   --card: #ffffff;
   --text: #1c1e21;
@@ -170,7 +170,7 @@ theme-default {
   --warning: #f08c00;
 }
 
-theme-slate {
+.theme-slate {
   --bg: #223047;
   --card: #2c3b54;
   --text: #eef3ff;
@@ -182,7 +182,7 @@ theme-slate {
   --warning: #ffd166;
 }
 
-theme-forest {
+.theme-forest {
   --bg: #19261b;
   --card: #243428;
   --text: #e3f0df;
@@ -194,7 +194,7 @@ theme-forest {
   --warning: #ffe066;
 }
 
-theme-sunset {
+.theme-sunset {
   --bg: #4a1c1c;
   --card: #5c2424;
   --text: #ffe8e2;
