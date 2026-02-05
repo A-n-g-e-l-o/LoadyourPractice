@@ -158,6 +158,89 @@ section {
   gap: 0.5rem;
 }
 
+.test-mode-section {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+}
+
+.test-mode-section h3 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+.test-mode-section p {
+  color: var(--muted);
+  margin-bottom: 1rem;
+}
+
+.test-mode-buttons {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.test-btn {
+  border: 1px solid var(--border);
+  background: var(--accent);
+  color: white;
+  padding: 0.75rem 1.2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.test-btn:hover {
+  opacity: 0.9;
+}
+
+.test-results-section {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 2rem;
+  text-align: center;
+}
+
+.test-results {
+  margin: 2rem 0;
+  font-size: 1.1rem;
+}
+
+.test-results .result-item {
+  margin: 1rem 0;
+  padding: 0.75rem;
+  background: rgba(0, 0, 0, 0.02);
+  border-radius: 8px;
+}
+
+.test-results .pass {
+  color: var(--success);
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.test-results .fail {
+  color: var(--error);
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.test-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.test-actions button {
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
 .theme-default {
   --bg: #f4f5f8;
   --card: #ffffff;
