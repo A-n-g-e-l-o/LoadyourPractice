@@ -25,8 +25,9 @@
         <h2>Laad oefenmateriaal</h2>
         <p>
           Kies een bestand met het formaat zoals in <strong>scrum_exam_questions.psm1</strong>.
+          Ondersteund: <strong>.psm1</strong>, <strong>.txt</strong>, <strong>.pdf</strong>, <strong>.docx</strong>.
         </p>
-        <input id="fileInput" type="file" accept=".psm1,.txt" />
+        <input id="fileInput" type="file" accept=".psm1,.txt,.pdf,.docx" />
         <button id="loadSample" type="button">Gebruik voorbeeldbestand</button>
         <p class="status" id="status">Nog geen bestand geladen.</p>
         <div class="settings">
@@ -73,6 +74,9 @@
       </section>
     </main>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js" crossorigin="anonymous"></script>
     <script src="app.js"></script>
   </body>
 </html>
