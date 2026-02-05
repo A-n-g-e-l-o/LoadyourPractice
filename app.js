@@ -33,6 +33,8 @@ const returnToPracticeBtn = document.getElementById('returnToPractice');
 const HISTORY_KEY = 'loadyourpractice-history';
 const RANDOM_KEY = 'loadyourpractice-random';
 const ASKED_QUESTIONS_KEY = 'loadyourpractice-asked-questions';
+const OFFICIAL_EXAM_QUESTIONS = 80;
+const OFFICIAL_MAX_WRONG = 15;
 
 let questions = [];
 let baseQuestions = [];
@@ -286,10 +288,10 @@ const startTestMode = (questionCount) => {
   if (availableQuestions.length >= questionCount) {
     questionsPool = availableQuestions;
   } else {
-    // If not enough new questions, use all questions and clear history
+    // If not enough new questions, use all questions
     questionsPool = baseQuestions;
     if (availableQuestions.length > 0) {
-      updateStatus(`Niet genoeg nieuwe vragen. Gebruik maken van ${availableQuestions.length} nieuwe en ${questionCount - availableQuestions.length} eerdere vragen.`);
+      updateStatus(`Niet genoeg nieuwe vragen. Gebruikmakend van ${availableQuestions.length} nieuwe en ${questionCount - availableQuestions.length} eerdere vragen.`);
     }
   }
 
@@ -320,10 +322,11 @@ const finishTest = () => {
   if (!testMode) return;
 
   // Check if all questions are answered
-  const unansweredCount = questions.filter(q => !answers.has(q.number) || !answers.get(q.number).checked).length;
+  const unansweredCount = questions.filter(q => !answers.get(q.number)?.checked).length;
   
   if (unansweredCount > 0) {
-    feedbackEl.textContent = `U heeft nog ${unansweredCount} vraag/vragen niet beantwoord. Beantwoord alle vragen voordat u de test beëindigt.`;
+    const questionWord = unansweredCount === 1 ? 'vraag' : 'vragen';
+    feedbackEl.textContent = `U heeft nog ${unansweredCount} ${questionWord} niet beantwoord. Beantwoord alle vragen voordat u de test beëindigt.`;
     feedbackEl.className = 'feedback warning';
     return;
   }
@@ -343,9 +346,9 @@ const showTestResults = () => {
   const incorrectAnswers = score.incorrect;
   
   // Calculate pass/fail based on official criteria
-  // For 80 questions: max 15 wrong = pass (65+ correct)
+  // Official exam: 80 questions with max 15 wrong answers allowed to pass
   // Scale proportionally for other test sizes
-  const maxWrongAllowed = Math.floor((15 / 80) * totalQuestions);
+  const maxWrongAllowed = Math.floor((OFFICIAL_MAX_WRONG / OFFICIAL_EXAM_QUESTIONS) * totalQuestions);
   const minCorrectRequired = totalQuestions - maxWrongAllowed;
   const passed = correctAnswers >= minCorrectRequired;
   
