@@ -1,0 +1,1276 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Persoonlijk Ontwikkelplan (POP) - Centric</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    .brand-green-text { color: #009845; }
+    .brand-green-bg { background-color: #009845; }
+    .brand-green-border { border-color: #009845; }
+    .brand-green-ring:focus { --tw-ring-color: #009845; }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+    .tab-btn { color: #6b7280; border-bottom: 3px solid transparent; }
+    .tab-btn.active { color: #009845; border-bottom: 3px solid #009845; }
+    .duration-block { display: none; }
+    .duration-block.active { display: block; }
+    .ref-card { background-color: #f9fafb; border: 1px dashed #d1d5db; }
+    .print-only { display: none; }
+    @media print {
+      body { background: #fff; padding: 0; }
+      .max-w-6xl { box-shadow: none; border: none; max-width: 100%; }
+      nav[role="tablist"] { display: none; }
+      #actiebalk { display: none; }
+      .tab-panel { display: block !important; }
+      .tab-panel + .tab-panel { page-break-before: always; break-before: page; }
+      .print-only { display: block !important; }
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800 p-4 md:p-8">
+
+  <div class="max-w-6xl mx-auto bg-white shadow-lg border border-gray-200 rounded-lg p-6 md:p-10">
+
+    <!-- HEADER -->
+    <header class="flex flex-col md:flex-row justify-between items-start md:items-center border-b pb-6 mb-6 gap-4">
+      <div>
+        <h1 class="text-2xl md:text-3xl font-bold text-gray-900">Persoonlijk Ontwikkelplan (POP)</h1>
+        <p class="text-sm md:text-base text-gray-600 mt-1">Leerwerktraject Support Consultant Burgerzaken – Centric Digitale Overheid</p>
+      </div>
+      <div class="flex items-center gap-2">
+        <!-- Minimalistic mimic of Centric Logo -->
+        <span class="w-6 h-6 rounded-full border-4 brand-green-border flex items-center justify-center">
+          <span class="w-2 h-2 rounded-full brand-green-bg"></span>
+        </span>
+        <div class="leading-none">
+          <span class="text-xl font-black tracking-tight text-gray-900">centric</span>
+          <p class="text-[9px] text-gray-500 tracking-wider">connect.engage.succeed.</p>
+        </div>
+      </div>
+    </header>
+
+    <!-- TAB NAVIGATION -->
+    <nav class="flex flex-wrap gap-2 md:gap-6 border-b mb-8" role="tablist">
+      <button type="button" class="tab-btn active px-2 py-3 text-sm md:text-base font-semibold transition" data-tab="tab-pop">1. Persoonlijk Ontwikkelplan</button>
+      <button type="button" class="tab-btn px-2 py-3 text-sm md:text-base font-semibold transition" data-tab="tab-tussen">2. Tussentijdse Evaluatie</button>
+      <button type="button" class="tab-btn px-2 py-3 text-sm md:text-base font-semibold transition" data-tab="tab-eind">3. Eindevaluatie &amp; Contractadvies</button>
+    </nav>
+
+    <!-- ======================================================= -->
+    <!-- TAB 1: PERSOONLIJK ONTWIKKELPLAN                          -->
+    <!-- ======================================================= -->
+    <div id="tab-pop" class="tab-panel active">
+      <h2 class="print-only text-2xl font-bold brand-green-text mb-6">1. Persoonlijk Ontwikkelplan</h2>
+      <form class="space-y-8">
+
+        <!-- ALGEMENE GEGEVENS -->
+        <section class="border border-gray-200 rounded-lg p-5">
+          <h2 class="text-lg font-bold brand-green-text mb-4 flex items-center gap-2">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+            Algemene Gegevens
+          </h2>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div>
+              <label class="block text-xs font-semibold text-gray-700 mb-1">Naam trainee <span class="text-red-500">*</span></label>
+              <input type="text" data-sync="naam-trainee" placeholder="Vul naam in" required class="w-full border border-gray-300 rounded p-2 text-sm focus:outline-none focus:ring-1 brand-green-ring focus:border-emerald-600">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-gray-700 mb-1">Startdatum <span class="text-red-500">*</span></label>
+              <input type="date" data-field="startdatum" required class="w-full border border-gray-300 rounded p-2 text-sm focus:outline-none focus:ring-1 brand-green-ring focus:border-emerald-600">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-gray-700 mb-1">Einddatum <span class="text-red-500">*</span></label>
+              <input type="date" data-field="einddatum" required class="w-full border border-gray-300 rounded p-2 text-sm focus:outline-none focus:ring-1 brand-green-ring focus:border-emerald-600">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-gray-700 mb-1">Begeleider <span class="text-red-500">*</span></label>
+              <input type="text" data-sync="begeleider" placeholder="Vul begeleider in" required class="w-full border border-gray-300 rounded p-2 text-sm focus:outline-none focus:ring-1 brand-green-ring focus:border-emerald-600">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-gray-700 mb-1">Team <span class="text-red-500">*</span></label>
+              <select data-field="team" required class="w-full border border-gray-300 rounded p-2 text-sm bg-white focus:outline-none focus:ring-1 brand-green-ring focus:border-emerald-600">
+                <option value="">Selecteer team</option>
+                <option>Team Burgerzaken</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-gray-700 mb-1">Leerwerktraject <span class="text-red-500">*</span></label>
+              <div class="flex items-center gap-4 mt-2">
+                <label class="flex items-center text-sm font-normal text-gray-700">
+                  <input type="radio" name="duration" value="3" data-sync="duration" class="mr-2 text-emerald-600 focus:ring-emerald-500"> 3 maanden (versneld)
+                </label>
+                <label class="flex items-center text-sm font-normal text-gray-700">
+                  <input type="radio" name="duration" value="6" data-sync="duration" checked class="mr-2 text-emerald-600 focus:ring-emerald-500"> 6 maanden
+                </label>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- DOEL VAN HET LEERWERKTRAJECT -->
+        <section class="border border-gray-200 rounded-lg p-5">
+          <h2 class="text-lg font-bold brand-green-text mb-4 flex items-center gap-2">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            Doel van het Leerwerktraject
+          </h2>
+
+          <div class="duration-block active" data-duration="6">
+            <p class="text-sm text-gray-700 mb-2">Tijdens dit leerwerktraject ontwikkel ik mij richting de functie van Support Consultant 1 binnen het Supportteam Burgerzaken. Het doel van dit traject is om:</p>
+            <ul class="list-disc list-inside text-sm text-gray-700 space-y-1 ref-card rounded p-3">
+              <li>kennis op te bouwen van Burgerzaken en de Centric-applicaties;</li>
+              <li>inzicht te krijgen in de processen binnen support;</li>
+              <li>zelfstandig eenvoudige meldingen te leren analyseren en afhandelen;</li>
+              <li>professioneel te leren communiceren met klanten en collega's;</li>
+              <li>eigenaarschap te nemen over werkzaamheden en ontwikkeling;</li>
+              <li>voldoende potentie te laten zien voor een contractaanbod als Support Consultant 1.</li>
+            </ul>
+          </div>
+
+          <div class="duration-block" data-duration="3">
+            <p class="text-sm text-gray-700 mb-2">Tijdens dit leerwerktraject ontwikkel ik mij richting de functie van Support Consultant 1 binnen het Supportteam Burgerzaken. Dit betreft een versneld ontwikkeltraject waarbij verwacht wordt dat ik in een periode van 3 maanden een sterke groei laat zien in kennis, zelfstandigheid, klantcontact en meldingenafhandeling. Het doel van dit traject is om:</p>
+            <ul class="list-disc list-inside text-sm text-gray-700 space-y-1 ref-card rounded p-3">
+              <li>grip te krijgen op de dagelijkse werkzaamheden binnen Support Burgerzaken;</li>
+              <li>basiskennis op te bouwen van Burgerzaken, processen en de Centric-applicatie;</li>
+              <li>zelfstandig eenvoudige meldingen te analyseren en af te handelen;</li>
+              <li>het intakeproces van meldingen te begrijpen en uit te voeren;</li>
+              <li>inzicht te ontwikkelen in prioriteitsbepaling en impact van meldingen;</li>
+              <li>professioneel te communiceren met klanten en collega's;</li>
+              <li>voldoende potentieel te laten zien voor een contractaanbod als Support Consultant 1.</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- ONTWIKKELDOEL 1 -->
+        <section class="border border-gray-200 rounded-lg p-5">
+          <h2 class="text-lg font-bold brand-green-text mb-1">Ontwikkeldoel 1 — Vakinhoudelijke kennis Burgerzaken</h2>
+
+          <div class="duration-block active" data-duration="6">
+            <p class="text-sm text-gray-700 mt-2 mb-3"><span class="font-semibold">Gewenst eindresultaat:</span> Aan het einde van het traject begrijp ik de belangrijkste Burgerzaken-processen en kan ik eenvoudige functionele vragen en meldingen zelfstandig onderzoeken en behandelen.</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4">
+              <div class="ref-card rounded p-3">
+                <p class="text-xs font-bold text-gray-500 uppercase mb-1">Fase 1 (maand 1-2)</p>
+                <ul class="list-disc list-inside text-xs text-gray-700 space-y-1">
+                  <li>Kennismaken met Burgerzaken-processen.</li>
+                  <li>Basiskennis opdoen van de applicatie.</li>
+                  <li>Bestuderen van handleidingen, kennisartikelen en documentatie.</li>
+                  <li>Meelopen met ervaren consultants.</li>
+                </ul>
+              </div>
+              <div class="ref-card rounded p-3">
+                <p class="text-xs font-bold text-gray-500 uppercase mb-1">Fase 2 (maand 3-4)</p>
+                <ul class="list-disc list-inside text-xs text-gray-700 space-y-1">
+                  <li>Zelfstandig eenvoudige klantvragen onderzoeken.</li>
+                  <li>Inzicht krijgen in veelvoorkomende meldingen.</li>
+                  <li>Begrijpen hoe processen, wetgeving en applicatie samenhangen.</li>
+                </ul>
+              </div>
+              <div class="ref-card rounded p-3">
+                <p class="text-xs font-bold text-gray-500 uppercase mb-1">Fase 3 (maand 5-6)</p>
+                <ul class="list-disc list-inside text-xs text-gray-700 space-y-1">
+                  <li>Zelfstandig eenvoudige functionele vragen beantwoorden.</li>
+                  <li>Veelvoorkomende problemen herkennen.</li>
+                  <li>Mogelijke oplossingsrichtingen kunnen voorstellen.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="duration-block" data-duration="3">
+            <p class="text-sm text-gray-700 mt-2 mb-3"><span class="font-semibold">Gewenst eindresultaat:</span> Aan het einde van het traject begrijp ik de belangrijkste Burgerzaken-processen, weet ik mijn weg te vinden binnen de applicatie en ben ik in staat eenvoudige functionele vragen zelfstandig te onderzoeken en te beantwoorden.</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4">
+              <div class="ref-card rounded p-3">
+                <p class="text-xs font-bold text-gray-500 uppercase mb-1">Fase 1 (maand 1)</p>
+                <ul class="list-disc list-inside text-xs text-gray-700 space-y-1">
+                  <li>Kennismaken met de belangrijkste Burgerzaken-processen.</li>
+                  <li>Basiskennis opdoen van de applicatie.</li>
+                  <li>Inzicht krijgen in veelvoorkomende klantvragen.</li>
+                  <li>Werken met handleidingen, kennisartikelen en documentatie.</li>
+                  <li>Meelopen met ervaren consultants.</li>
+                </ul>
+              </div>
+              <div class="ref-card rounded p-3">
+                <p class="text-xs font-bold text-gray-500 uppercase mb-1">Fase 2 (maand 2)</p>
+                <ul class="list-disc list-inside text-xs text-gray-700 space-y-1">
+                  <li>Zelfstandig eenvoudige vragen onderzoeken.</li>
+                  <li>Oude meldingen en kennisartikelen gebruiken als referentie.</li>
+                  <li>Begrijpen hoe processen en applicatie samenhangen.</li>
+                </ul>
+              </div>
+              <div class="ref-card rounded p-3">
+                <p class="text-xs font-bold text-gray-500 uppercase mb-1">Fase 3 (maand 3)</p>
+                <ul class="list-disc list-inside text-xs text-gray-700 space-y-1">
+                  <li>Zelfstandig eenvoudige functionele vragen beantwoorden.</li>
+                  <li>Veelvoorkomende problemen herkennen.</li>
+                  <li>Mogelijke oplossingsrichtingen formuleren.</li>
+                  <li>Een duidelijke analyse opstellen van een klantvraag.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Persoonlijke acties trainee</label>
+          <textarea rows="2" data-field="acties-doel1" placeholder="Beschrijf je persoonlijke acties..." class="w-full border border-gray-300 rounded p-2 text-sm focus:outline-none focus:ring-1 brand-green-ring focus:border-emerald-600"></textarea>
+        </section>
+
+        <!-- ONTWIKKELDOEL 2 -->
+        <section class="border border-gray-200 rounded-lg p-5">
+          <h2 class="text-lg font-bold brand-green-text mb-1">Ontwikkeldoel 2 — Meldingenbeheer, Intake en Analyse</h2>
+
+          <div class="duration-block active" data-duration="6">
+            <p class="text-sm text-gray-700 mt-2 mb-3"><span class="font-semibold">Gewenst eindresultaat:</span> Aan het einde van het traject kan ik meldingen analyseren, reproduceren, prioriteren en de juiste vervolgactie bepalen.</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4">
+              <div class="ref-card rounded p-3">
+                <p class="text-xs font-bold text-gray-500 uppercase mb-1">Fase 1 (maand 1-2)</p>
+                <ul class="list-disc list-inside text-xs text-gray-700 space-y-1">
+                  <li>Meldingen controleren op volledigheid.</li>
+                  <li>Meldingen analyseren en reproduceren in ACC.</li>
+                  <li>Kennismaken met verschillende meldingstypen.</li>
+                </ul>
+              </div>
+              <div class="ref-card rounded p-3">
+                <p class="text-xs font-bold text-gray-500 uppercase mb-1">Fase 2 (maand 3-4)</p>
+                <ul class="list-disc list-inside text-xs text-gray-700 space-y-1">
+                  <li>Zelfstandig meldingen oppakken.</li>
+                  <li>Eerdere meldingen gebruiken als referentie.</li>
+                  <li>Changes aanmaken voor bugs en wensen.</li>
+                  <li>Korte analyses uitvoeren.</li>
+                  <li>Meldingen gericht doorzetten.</li>
+                  <li>Prioriteit en impact leren bepalen.</li>
+                </ul>
+              </div>
+              <div class="ref-card rounded p-3">
+                <p class="text-xs font-bold text-gray-500 uppercase mb-1">Fase 3 (maand 5-6)</p>
+                <ul class="list-disc list-inside text-xs text-gray-700 space-y-1">
+                  <li>Gemiddeld circa 15 actieve cases beheren.</li>
+                  <li>Verantwoordelijkheid nemen voor eigen dossieropbouw.</li>
+                  <li>Intake-diensten uitvoeren.</li>
+                  <li>Kennis verdiepen op minimaal één of twee specifieke onderdelen.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="duration-block" data-duration="3">
+            <p class="text-sm text-gray-700 mt-2 mb-3"><span class="font-semibold">Gewenst eindresultaat:</span> Aan het einde van het traject kan ik zelfstandig eenvoudige meldingen oppakken, analyseren en afhandelen volgens de werkwijze van de afdeling. Daarnaast begrijp ik het intakeproces en kan ik een eerste inschatting maken van prioriteit, impact en vervolgstappen.</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4">
+              <div class="ref-card rounded p-3">
+                <p class="text-xs font-bold text-gray-500 uppercase mb-1">Fase 1 (maand 1)</p>
+                <ul class="list-disc list-inside text-xs text-gray-700 space-y-1">
+                  <li>Meldingen lezen en interpreteren.</li>
+                  <li>Volledigheid controleren.</li>
+                  <li>Verschillende meldingstypen herkennen.</li>
+                  <li>Meldingen reproduceren in ACC.</li>
+                  <li>Bestaande meldingen gebruiken als referentie.</li>
+                </ul>
+              </div>
+              <div class="ref-card rounded p-3">
+                <p class="text-xs font-bold text-gray-500 uppercase mb-1">Fase 2 (maand 2)</p>
+                <ul class="list-disc list-inside text-xs text-gray-700 space-y-1">
+                  <li>Meldingen zelfstandig categoriseren.</li>
+                  <li>Zelfstandig analyses uitvoeren.</li>
+                  <li>Worknotes correct vastleggen.</li>
+                  <li>Changes aanmaken voor bugs en wensen.</li>
+                  <li>Prioriteit en impact leren herkennen.</li>
+                </ul>
+              </div>
+              <div class="ref-card rounded p-3">
+                <p class="text-xs font-bold text-gray-500 uppercase mb-1">Fase 3 (maand 3)</p>
+                <ul class="list-disc list-inside text-xs text-gray-700 space-y-1">
+                  <li>Zelfstandig eenvoudige meldingen oppakken en afhandelen.</li>
+                  <li>Gemiddeld 8 tot 12 actieve cases beheren.</li>
+                  <li>Correct doorzetten naar de juiste afdeling indien nodig.</li>
+                  <li>Het intakeproces zelfstandig uitvoeren.</li>
+                  <li>Een eerste onderbouwde inschatting maken van prioriteit en impact.</li>
+                  <li>Weten hoe te handelen bij P1- en kritieke meldingen.</li>
+                  <li>Weten welke collega's, teams en procedures betrokken moeten worden bij kritieke incidenten.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Persoonlijke acties trainee</label>
+          <textarea rows="2" data-field="acties-doel2" placeholder="Beschrijf je persoonlijke acties..." class="w-full border border-gray-300 rounded p-2 text-sm focus:outline-none focus:ring-1 brand-green-ring focus:border-emerald-600"></textarea>
+        </section>
+
+        <!-- ONTWIKKELDOEL 3 -->
+        <section class="border border-gray-200 rounded-lg p-5">
+          <h2 class="text-lg font-bold brand-green-text mb-1">Ontwikkeldoel 3 — Klantgerichtheid en Communicatie</h2>
+
+          <div class="duration-block active" data-duration="6">
+            <p class="text-sm text-gray-700 mt-2 mb-3"><span class="font-semibold">Gewenst eindresultaat:</span> Aan het einde van het traject kan ik zelfstandig professioneel communiceren met klanten en collega's.</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4">
+              <div class="ref-card rounded p-3">
+                <p class="text-xs font-bold text-gray-500 uppercase mb-1">Fase 1 (maand 1-2)</p>
+                <ul class="list-disc list-inside text-xs text-gray-700 space-y-1">
+                  <li>Observeren van klantcontact.</li>
+                  <li>Professionele communicatie aanleren.</li>
+                </ul>
+              </div>
+              <div class="ref-card rounded p-3">
+                <p class="text-xs font-bold text-gray-500 uppercase mb-1">Fase 2 (maand 3-4)</p>
+                <ul class="list-disc list-inside text-xs text-gray-700 space-y-1">
+                  <li>Zelfstandig ontbrekende informatie opvragen.</li>
+                  <li>Klanten informeren over voortgang.</li>
+                </ul>
+              </div>
+              <div class="ref-card rounded p-3">
+                <p class="text-xs font-bold text-gray-500 uppercase mb-1">Fase 3 (maand 5-6)</p>
+                <ul class="list-disc list-inside text-xs text-gray-700 space-y-1">
+                  <li>Zelfstandig eerste klantcontact onderhouden.</li>
+                  <li>Professionele terugkoppelingen verzorgen.</li>
+                  <li>Verwachtingen van klanten managen.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="duration-block" data-duration="3">
+            <p class="text-sm text-gray-700 mt-2 mb-3"><span class="font-semibold">Gewenst eindresultaat:</span> Aan het einde van het traject onderhoud ik zelfstandig contact met klanten rondom eenvoudige meldingen en verzorg ik duidelijke en professionele terugkoppelingen.</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4">
+              <div class="ref-card rounded p-3">
+                <p class="text-xs font-bold text-gray-500 uppercase mb-1">Fase 1 (maand 1)</p>
+                <ul class="list-disc list-inside text-xs text-gray-700 space-y-1">
+                  <li>Professionele communicatie observeren.</li>
+                  <li>Verzameldocumenten correct opmaken.</li>
+                  <li>Telefonisch klantcontact observeren.</li>
+                </ul>
+              </div>
+              <div class="ref-card rounded p-3">
+                <p class="text-xs font-bold text-gray-500 uppercase mb-1">Fase 2 (maand 2)</p>
+                <ul class="list-disc list-inside text-xs text-gray-700 space-y-1">
+                  <li>Zelfstandig aanvullende informatie opvragen.</li>
+                  <li>Klanten informeren over voortgang.</li>
+                  <li>Professionele e-mails opstellen.</li>
+                </ul>
+              </div>
+              <div class="ref-card rounded p-3">
+                <p class="text-xs font-bold text-gray-500 uppercase mb-1">Fase 3 (maand 3)</p>
+                <ul class="list-disc list-inside text-xs text-gray-700 space-y-1">
+                  <li>Zelfstandig eerste klantcontact onderhouden.</li>
+                  <li>Klantverwachtingen managen.</li>
+                  <li>Professioneel terugkoppelen richting klant.</li>
+                  <li>Zelfstandig contact opnemen wanneer aanvullende informatie ontbreekt.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Persoonlijke acties trainee</label>
+          <textarea rows="2" data-field="acties-doel3" placeholder="Beschrijf je persoonlijke acties..." class="w-full border border-gray-300 rounded p-2 text-sm focus:outline-none focus:ring-1 brand-green-ring focus:border-emerald-600"></textarea>
+        </section>
+
+        <!-- ONTWIKKELDOEL 4 -->
+        <section class="border border-gray-200 rounded-lg p-5">
+          <div class="duration-block active" data-duration="6">
+            <h2 class="text-lg font-bold brand-green-text mb-1">Ontwikkeldoel 4 — Samenwerking en Werkhouding</h2>
+            <p class="text-sm text-gray-700 mt-2 mb-3"><span class="font-semibold">Gewenst eindresultaat:</span> Aan het einde van het traject functioneer ik als een betrouwbare en professionele collega binnen het supportteam.</p>
+            <div class="ref-card rounded p-3 mb-4">
+              <p class="text-xs font-bold text-gray-500 uppercase mb-1">Gedurende het gehele traject</p>
+              <ul class="list-disc list-inside text-xs text-gray-700 space-y-1">
+                <li>Afspraken nakomen.</li>
+                <li>Tijdig hulp vragen.</li>
+                <li>Openstaan voor feedback.</li>
+                <li>Samenwerken met collega's.</li>
+                <li>Positief bijdragen aan het team.</li>
+                <li>Professioneel gedrag tonen.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="duration-block" data-duration="3">
+            <h2 class="text-lg font-bold brand-green-text mb-1">Ontwikkeldoel 4 — Werkhouding en Samenwerking</h2>
+            <p class="text-sm text-gray-700 mt-2 mb-3"><span class="font-semibold">Gewenst eindresultaat:</span> Aan het einde van het traject ben ik een betrouwbare, professionele en samenwerkingsgerichte collega binnen het supportteam.</p>
+            <div class="ref-card rounded p-3 mb-4">
+              <p class="text-xs font-bold text-gray-500 uppercase mb-1">Gedurende het gehele traject</p>
+              <ul class="list-disc list-inside text-xs text-gray-700 space-y-1">
+                <li>Kom ik afspraken na.</li>
+                <li>Vraag ik tijdig hulp wanneer nodig.</li>
+                <li>Sta ik open voor feedback.</li>
+                <li>Pas ik ontvangen feedback toe.</li>
+                <li>Neem ik actief deel aan teamoverleggen.</li>
+                <li>Werk ik prettig samen met collega's.</li>
+                <li>Lever ik een positieve bijdrage aan het team.</li>
+              </ul>
+            </div>
+          </div>
+
+          <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Persoonlijke acties trainee</label>
+          <textarea rows="2" data-field="acties-doel4" placeholder="Beschrijf je persoonlijke acties..." class="w-full border border-gray-300 rounded p-2 text-sm focus:outline-none focus:ring-1 brand-green-ring focus:border-emerald-600"></textarea>
+        </section>
+
+        <!-- ONTWIKKELDOEL 5 -->
+        <section class="border border-gray-200 rounded-lg p-5">
+          <h2 class="text-lg font-bold brand-green-text mb-1">Ontwikkeldoel 5 — Zelfstandigheid en Eigenaarschap</h2>
+
+          <div class="duration-block active" data-duration="6">
+            <p class="text-sm text-gray-700 mt-2 mb-3"><span class="font-semibold">Gewenst eindresultaat:</span> Aan het einde van het traject neem ik verantwoordelijkheid voor mijn werkzaamheden en beheer ik zelfstandig mijn eigen meldingen.</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4">
+              <div class="ref-card rounded p-3">
+                <p class="text-xs font-bold text-gray-500 uppercase mb-1">Fase 1 (maand 1-2)</p>
+                <ul class="list-disc list-inside text-xs text-gray-700 space-y-1">
+                  <li>Werken onder begeleiding.</li>
+                </ul>
+              </div>
+              <div class="ref-card rounded p-3">
+                <p class="text-xs font-bold text-gray-500 uppercase mb-1">Fase 2 (maand 3-4)</p>
+                <ul class="list-disc list-inside text-xs text-gray-700 space-y-1">
+                  <li>Standaard werkzaamheden zelfstandig uitvoeren.</li>
+                  <li>Hulp inschakelen wanneer nodig.</li>
+                </ul>
+              </div>
+              <div class="ref-card rounded p-3">
+                <p class="text-xs font-bold text-gray-500 uppercase mb-1">Fase 3 (maand 5-6)</p>
+                <ul class="list-disc list-inside text-xs text-gray-700 space-y-1">
+                  <li>Eigen meldingen beheren.</li>
+                  <li>Openstaande acties opvolgen.</li>
+                  <li>Verantwoordelijkheid nemen voor resultaten.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="duration-block" data-duration="3">
+            <p class="text-sm text-gray-700 mt-2 mb-3"><span class="font-semibold">Gewenst eindresultaat:</span> Aan het einde van het traject neem ik eigenaarschap over mijn werkzaamheden en ben ik in staat om reguliere werkzaamheden zelfstandig uit te voeren.</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4">
+              <div class="ref-card rounded p-3">
+                <p class="text-xs font-bold text-gray-500 uppercase mb-1">Fase 1 (maand 1)</p>
+                <ul class="list-disc list-inside text-xs text-gray-700 space-y-1">
+                  <li>Werken onder begeleiding.</li>
+                  <li>Inzicht krijgen in processen, systemen en werkwijzen.</li>
+                </ul>
+              </div>
+              <div class="ref-card rounded p-3">
+                <p class="text-xs font-bold text-gray-500 uppercase mb-1">Fase 2 (maand 2)</p>
+                <ul class="list-disc list-inside text-xs text-gray-700 space-y-1">
+                  <li>Eenvoudige werkzaamheden zelfstandig uitvoeren.</li>
+                  <li>Zelf oplossingen en informatie zoeken.</li>
+                  <li>Tijdig hulp vragen wanneer nodig.</li>
+                </ul>
+              </div>
+              <div class="ref-card rounded p-3">
+                <p class="text-xs font-bold text-gray-500 uppercase mb-1">Fase 3 (maand 3)</p>
+                <ul class="list-disc list-inside text-xs text-gray-700 space-y-1">
+                  <li>Zelfstandig meldingen oppakken.</li>
+                  <li>Verantwoordelijkheid nemen voor eigen werkzaamheden.</li>
+                  <li>Actief opvolgen van openstaande acties.</li>
+                  <li>Prioriteiten stellen binnen eigen werkzaamheden.</li>
+                  <li>Eigenaarschap tonen over toegewezen meldingen.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Persoonlijke acties trainee</label>
+          <textarea rows="2" data-field="acties-doel5" placeholder="Beschrijf je persoonlijke acties..." class="w-full border border-gray-300 rounded p-2 text-sm focus:outline-none focus:ring-1 brand-green-ring focus:border-emerald-600"></textarea>
+        </section>
+
+        <!-- ONTWIKKELDOEL 6 (alleen 6 maanden) -->
+        <section class="duration-block active border border-gray-200 rounded-lg p-5" data-duration="6">
+          <h2 class="text-lg font-bold brand-green-text mb-1">Ontwikkeldoel 6 — Kennisdeling en Verbeteringen</h2>
+          <p class="text-sm text-gray-700 mt-2 mb-3"><span class="font-semibold">Gewenst eindresultaat:</span> Aan het einde van het traject lever ik actief een bijdrage aan kennisopbouw en verbetering binnen het team.</p>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
+            <div class="ref-card rounded p-3">
+              <p class="text-xs font-bold text-gray-500 uppercase mb-1">Fase 2 (maand 3-4)</p>
+              <ul class="list-disc list-inside text-xs text-gray-700 space-y-1">
+                <li>Eigen leerpunten vastleggen.</li>
+              </ul>
+            </div>
+            <div class="ref-card rounded p-3">
+              <p class="text-xs font-bold text-gray-500 uppercase mb-1">Fase 3 (maand 5-6)</p>
+              <ul class="list-disc list-inside text-xs text-gray-700 space-y-1">
+                <li>Minimaal één kennisartikel of werkinstructie opstellen.</li>
+                <li>Verbeterideeën aandragen.</li>
+                <li>Kennis delen met collega's.</li>
+              </ul>
+            </div>
+          </div>
+          <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Persoonlijke acties trainee</label>
+          <textarea rows="2" data-field="acties-doel6" placeholder="Beschrijf je persoonlijke acties..." class="w-full border border-gray-300 rounded p-2 text-sm focus:outline-none focus:ring-1 brand-green-ring focus:border-emerald-600"></textarea>
+        </section>
+
+        <!-- PERSOONLIJKE ONTWIKKELDOELEN TRAINEE -->
+        <section class="border border-gray-200 rounded-lg p-5">
+          <h2 class="text-lg font-bold brand-green-text mb-4 flex items-center gap-2">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+            Persoonlijke Ontwikkeldoelen Trainee
+          </h2>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div>
+              <h3 class="font-bold text-sm text-gray-900 mb-2">Persoonlijk doel 1</h3>
+              <div class="space-y-2">
+                <div>
+                  <label class="block text-xs font-semibold text-gray-600 mb-1">Wat wil ik ontwikkelen?</label>
+                  <textarea rows="2" data-field="pdoel1-wat" placeholder="Beschrijf..." class="w-full border border-gray-300 rounded p-1.5 text-xs"></textarea>
+                </div>
+                <div>
+                  <label class="block text-xs font-semibold text-gray-600 mb-1">Waarom wil ik dit ontwikkelen?</label>
+                  <textarea rows="2" data-field="pdoel1-waarom" placeholder="Beschrijf..." class="w-full border border-gray-300 rounded p-1.5 text-xs"></textarea>
+                </div>
+                <div>
+                  <label class="block text-xs font-semibold text-gray-600 mb-1">Welke acties ga ik ondernemen?</label>
+                  <textarea rows="2" data-field="pdoel1-acties" placeholder="Beschrijf..." class="w-full border border-gray-300 rounded p-1.5 text-xs"></textarea>
+                </div>
+              </div>
+            </div>
+            <div>
+              <h3 class="font-bold text-sm text-gray-900 mb-2">Persoonlijk doel 2</h3>
+              <div class="space-y-2">
+                <div>
+                  <label class="block text-xs font-semibold text-gray-600 mb-1">Wat wil ik ontwikkelen?</label>
+                  <textarea rows="2" data-field="pdoel2-wat" placeholder="Beschrijf..." class="w-full border border-gray-300 rounded p-1.5 text-xs"></textarea>
+                </div>
+                <div>
+                  <label class="block text-xs font-semibold text-gray-600 mb-1">Waarom wil ik dit ontwikkelen?</label>
+                  <textarea rows="2" data-field="pdoel2-waarom" placeholder="Beschrijf..." class="w-full border border-gray-300 rounded p-1.5 text-xs"></textarea>
+                </div>
+                <div>
+                  <label class="block text-xs font-semibold text-gray-600 mb-1">Welke acties ga ik ondernemen?</label>
+                  <textarea rows="2" data-field="pdoel2-acties" placeholder="Beschrijf..." class="w-full border border-gray-300 rounded p-1.5 text-xs"></textarea>
+                </div>
+              </div>
+            </div>
+            <div>
+              <h3 class="font-bold text-sm text-gray-900 mb-2">Persoonlijk doel 3</h3>
+              <div class="space-y-2">
+                <div>
+                  <label class="block text-xs font-semibold text-gray-600 mb-1">Wat wil ik ontwikkelen?</label>
+                  <textarea rows="2" data-field="pdoel3-wat" placeholder="Beschrijf..." class="w-full border border-gray-300 rounded p-1.5 text-xs"></textarea>
+                </div>
+                <div>
+                  <label class="block text-xs font-semibold text-gray-600 mb-1">Waarom wil ik dit ontwikkelen?</label>
+                  <textarea rows="2" data-field="pdoel3-waarom" placeholder="Beschrijf..." class="w-full border border-gray-300 rounded p-1.5 text-xs"></textarea>
+                </div>
+                <div>
+                  <label class="block text-xs font-semibold text-gray-600 mb-1">Welke acties ga ik ondernemen?</label>
+                  <textarea rows="2" data-field="pdoel3-acties" placeholder="Beschrijf..." class="w-full border border-gray-300 rounded p-1.5 text-xs"></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ONDERSTEUNING -->
+        <section class="border border-gray-200 rounded-lg p-5">
+          <h2 class="text-lg font-bold brand-green-text mb-3">Ondersteuning vanuit Begeleider en Team</h2>
+          <label class="block text-xs font-semibold text-gray-700 mb-1">Welke begeleiding, ondersteuning, opleidingen of hulpmiddelen heb ik nodig om mijn doelen te behalen?</label>
+          <textarea rows="3" data-field="ondersteuning" placeholder="Beschrijf..." class="w-full border border-gray-300 rounded p-2 text-sm focus:outline-none focus:ring-1 brand-green-ring focus:border-emerald-600"></textarea>
+        </section>
+
+        <!-- ACTIE- EN PLANNINGSOVERZICHT -->
+        <section class="border border-gray-200 rounded-lg p-5 overflow-x-auto">
+          <h2 class="text-lg font-bold brand-green-text mb-4 flex items-center gap-2">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+            Actie- en Planningsoverzicht
+          </h2>
+          <table class="w-full min-w-[600px] border-collapse text-left text-xs">
+            <thead>
+              <tr class="brand-green-bg text-white">
+                <th class="p-2 border border-emerald-700">Doel</th>
+                <th class="p-2 border border-emerald-700">Actie(s)</th>
+                <th class="p-2 border border-emerald-700 w-36">Streefdatum</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="bg-white">
+                <td class="p-1 border border-gray-200"><input type="text" data-field="actieplan1-doel" class="w-full p-1 bg-transparent border-0 focus:ring-0 text-xs"></td>
+                <td class="p-1 border border-gray-200"><input type="text" data-field="actieplan1-actie" class="w-full p-1 bg-transparent border-0 focus:ring-0 text-xs"></td>
+                <td class="p-1 border border-gray-200"><input type="date" data-field="actieplan1-datum" class="w-full p-1 bg-transparent border-0 text-xs"></td>
+              </tr>
+              <tr class="bg-gray-50">
+                <td class="p-1 border border-gray-200"><input type="text" data-field="actieplan2-doel" class="w-full p-1 bg-transparent border-0 focus:ring-0 text-xs"></td>
+                <td class="p-1 border border-gray-200"><input type="text" data-field="actieplan2-actie" class="w-full p-1 bg-transparent border-0 focus:ring-0 text-xs"></td>
+                <td class="p-1 border border-gray-200"><input type="date" data-field="actieplan2-datum" class="w-full p-1 bg-transparent border-0 text-xs"></td>
+              </tr>
+              <tr class="bg-white">
+                <td class="p-1 border border-gray-200"><input type="text" data-field="actieplan3-doel" class="w-full p-1 bg-transparent border-0 focus:ring-0 text-xs"></td>
+                <td class="p-1 border border-gray-200"><input type="text" data-field="actieplan3-actie" class="w-full p-1 bg-transparent border-0 focus:ring-0 text-xs"></td>
+                <td class="p-1 border border-gray-200"><input type="date" data-field="actieplan3-datum" class="w-full p-1 bg-transparent border-0 text-xs"></td>
+              </tr>
+              <tr class="bg-gray-50">
+                <td class="p-1 border border-gray-200"><input type="text" data-field="actieplan4-doel" class="w-full p-1 bg-transparent border-0 focus:ring-0 text-xs"></td>
+                <td class="p-1 border border-gray-200"><input type="text" data-field="actieplan4-actie" class="w-full p-1 bg-transparent border-0 focus:ring-0 text-xs"></td>
+                <td class="p-1 border border-gray-200"><input type="date" data-field="actieplan4-datum" class="w-full p-1 bg-transparent border-0 text-xs"></td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <!-- VERWACHTING EINDE TRAJECT (alleen 3 maanden) -->
+        <section class="duration-block border-2 brand-green-border rounded-lg p-5" data-duration="3">
+          <h2 class="text-lg font-bold brand-green-text mb-3">Verwachting Einde Traject</h2>
+          <p class="text-sm text-gray-700 mb-2">Aan het einde van dit traject wordt verwacht dat ik:</p>
+          <ul class="list-disc list-inside text-sm text-gray-700 space-y-1 ref-card rounded p-3">
+            <li>de dagelijkse werkzaamheden binnen Support Burgerzaken begrijp;</li>
+            <li>zelfstandig eenvoudige meldingen kan onderzoeken, oppakken en afhandelen;</li>
+            <li>gemiddeld 8 tot 12 actieve cases kan beheren;</li>
+            <li>het intakeproces zelfstandig kan uitvoeren;</li>
+            <li>een eerste inschatting kan maken van prioriteit en impact;</li>
+            <li>weet hoe te handelen bij P1- en kritieke meldingen;</li>
+            <li>professioneel communiceer met klanten en collega's;</li>
+            <li>eigenaarschap toon over mijn werkzaamheden;</li>
+            <li>potentie laat zien om door te groeien naar de functie van Support Consultant 1.</li>
+          </ul>
+        </section>
+
+      </form>
+    </div>
+
+    <!-- ======================================================= -->
+    <!-- TAB 2: TUSSENTIJDSE EVALUATIE                             -->
+    <!-- ======================================================= -->
+    <div id="tab-tussen" class="tab-panel">
+      <h2 class="print-only text-2xl font-bold brand-green-text mb-6">2. Tussentijdse Evaluatie</h2>
+      <form class="space-y-8">
+
+        <!-- ALGEMENE GEGEVENS -->
+        <section class="border border-gray-200 rounded-lg p-5">
+          <h2 class="text-lg font-bold brand-green-text mb-4">Algemene Gegevens</h2>
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div>
+              <label class="block text-xs font-semibold text-gray-700 mb-1">Naam trainee</label>
+              <input type="text" data-sync="naam-trainee" placeholder="Vul naam in" class="w-full border border-gray-300 rounded p-2 text-sm focus:outline-none focus:ring-1 brand-green-ring">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-gray-700 mb-1">Datum evaluatie</label>
+              <input type="date" data-field="tussen-datum" class="w-full border border-gray-300 rounded p-2 text-sm focus:outline-none focus:ring-1 brand-green-ring">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-gray-700 mb-1">Begeleider</label>
+              <input type="text" data-sync="begeleider" placeholder="Vul begeleider in" class="w-full border border-gray-300 rounded p-2 text-sm focus:outline-none focus:ring-1 brand-green-ring">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-gray-700 mb-1">Traject</label>
+              <input type="text" data-sync-display="duration" readonly placeholder="3 of 6 maanden" class="w-full border border-gray-300 rounded p-2 text-sm bg-gray-100">
+            </div>
+          </div>
+          <label class="flex items-center text-sm text-gray-700 mt-3">
+            <input type="checkbox" data-field="tussen-moment-halverwege" class="mr-2 text-emerald-600"> Evaluatiemoment: Halverwege traject
+          </label>
+        </section>
+
+        <!-- REFLECTIE TRAINEE -->
+        <section class="border border-gray-200 rounded-lg p-5">
+          <h2 class="text-lg font-bold brand-green-text mb-4">Reflectie Trainee</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-semibold text-gray-700 mb-1">Waar ben je trots op sinds de start van het traject?</label>
+              <textarea rows="3" data-field="tussen-trots" placeholder="Beschrijf..." class="w-full border border-gray-300 rounded p-2 text-sm focus:outline-none focus:ring-1 brand-green-ring"></textarea>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-gray-700 mb-1">Wat vind je tot nu toe het meest uitdagend?</label>
+              <textarea rows="3" data-field="tussen-uitdagend" placeholder="Beschrijf..." class="w-full border border-gray-300 rounded p-2 text-sm focus:outline-none focus:ring-1 brand-green-ring"></textarea>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-gray-700 mb-1">Wat heb je geleerd?</label>
+              <textarea rows="3" data-field="tussen-geleerd" placeholder="Beschrijf..." class="w-full border border-gray-300 rounded p-2 text-sm focus:outline-none focus:ring-1 brand-green-ring"></textarea>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-gray-700 mb-1">Waar wil je de komende periode extra aandacht aan besteden?</label>
+              <textarea rows="3" data-field="tussen-focus" placeholder="Beschrijf..." class="w-full border border-gray-300 rounded p-2 text-sm focus:outline-none focus:ring-1 brand-green-ring"></textarea>
+            </div>
+          </div>
+        </section>
+
+        <!-- VOORTGANG OP ONTWIKKELDOELEN -->
+        <section class="border border-gray-200 rounded-lg p-5">
+          <h2 class="text-lg font-bold brand-green-text mb-4">Voortgang op Ontwikkeldoelen</h2>
+          <div class="space-y-4">
+            <!-- Doel 1 -->
+            <div class="border-b pb-4">
+              <h3 class="font-bold text-sm text-gray-900 mb-2">Doel 1 — Vakinhoudelijke kennis Burgerzaken</h3>
+              <div class="flex flex-wrap gap-4 mb-2">
+                <label class="flex items-center text-xs text-gray-700"><input type="radio" name="status_doel1" value="op-schema" class="mr-1.5 text-emerald-600"> Op schema</label>
+                <label class="flex items-center text-xs text-gray-700"><input type="radio" name="status_doel1" value="voor-op-schema" class="mr-1.5 text-emerald-600"> Voor op schema</label>
+                <label class="flex items-center text-xs text-gray-700"><input type="radio" name="status_doel1" value="extra-ontwikkeling" class="mr-1.5 text-emerald-600"> Extra ontwikkeling nodig</label>
+              </div>
+              <textarea rows="2" data-field="tussen-opm-doel1" placeholder="Opmerkingen..." class="w-full border border-gray-300 rounded p-1.5 text-xs focus:outline-none"></textarea>
+            </div>
+            <!-- Doel 2 -->
+            <div class="border-b pb-4">
+              <h3 class="font-bold text-sm text-gray-900 mb-2">Doel 2 — Meldingenbeheer, Intake en Analyse</h3>
+              <div class="flex flex-wrap gap-4 mb-2">
+                <label class="flex items-center text-xs text-gray-700"><input type="radio" name="status_doel2" value="op-schema" class="mr-1.5 text-emerald-600"> Op schema</label>
+                <label class="flex items-center text-xs text-gray-700"><input type="radio" name="status_doel2" value="voor-op-schema" class="mr-1.5 text-emerald-600"> Voor op schema</label>
+                <label class="flex items-center text-xs text-gray-700"><input type="radio" name="status_doel2" value="extra-ontwikkeling" class="mr-1.5 text-emerald-600"> Extra ontwikkeling nodig</label>
+              </div>
+              <textarea rows="2" data-field="tussen-opm-doel2" placeholder="Opmerkingen..." class="w-full border border-gray-300 rounded p-1.5 text-xs focus:outline-none"></textarea>
+            </div>
+            <!-- Doel 3 -->
+            <div class="border-b pb-4">
+              <h3 class="font-bold text-sm text-gray-900 mb-2">Doel 3 — Klantgerichtheid en Communicatie</h3>
+              <div class="flex flex-wrap gap-4 mb-2">
+                <label class="flex items-center text-xs text-gray-700"><input type="radio" name="status_doel3" value="op-schema" class="mr-1.5 text-emerald-600"> Op schema</label>
+                <label class="flex items-center text-xs text-gray-700"><input type="radio" name="status_doel3" value="voor-op-schema" class="mr-1.5 text-emerald-600"> Voor op schema</label>
+                <label class="flex items-center text-xs text-gray-700"><input type="radio" name="status_doel3" value="extra-ontwikkeling" class="mr-1.5 text-emerald-600"> Extra ontwikkeling nodig</label>
+              </div>
+              <textarea rows="2" data-field="tussen-opm-doel3" placeholder="Opmerkingen..." class="w-full border border-gray-300 rounded p-1.5 text-xs focus:outline-none"></textarea>
+            </div>
+            <!-- Doel 4 -->
+            <div class="border-b pb-4">
+              <h3 class="font-bold text-sm text-gray-900 mb-2">Doel 4 — Werkhouding en Samenwerking</h3>
+              <div class="flex flex-wrap gap-4 mb-2">
+                <label class="flex items-center text-xs text-gray-700"><input type="radio" name="status_doel4" value="op-schema" class="mr-1.5 text-emerald-600"> Op schema</label>
+                <label class="flex items-center text-xs text-gray-700"><input type="radio" name="status_doel4" value="voor-op-schema" class="mr-1.5 text-emerald-600"> Voor op schema</label>
+                <label class="flex items-center text-xs text-gray-700"><input type="radio" name="status_doel4" value="extra-ontwikkeling" class="mr-1.5 text-emerald-600"> Extra ontwikkeling nodig</label>
+              </div>
+              <textarea rows="2" data-field="tussen-opm-doel4" placeholder="Opmerkingen..." class="w-full border border-gray-300 rounded p-1.5 text-xs focus:outline-none"></textarea>
+            </div>
+            <!-- Doel 5 -->
+            <div class="border-b pb-4">
+              <h3 class="font-bold text-sm text-gray-900 mb-2">Doel 5 — Zelfstandigheid en Eigenaarschap</h3>
+              <div class="flex flex-wrap gap-4 mb-2">
+                <label class="flex items-center text-xs text-gray-700"><input type="radio" name="status_doel5" value="op-schema" class="mr-1.5 text-emerald-600"> Op schema</label>
+                <label class="flex items-center text-xs text-gray-700"><input type="radio" name="status_doel5" value="voor-op-schema" class="mr-1.5 text-emerald-600"> Voor op schema</label>
+                <label class="flex items-center text-xs text-gray-700"><input type="radio" name="status_doel5" value="extra-ontwikkeling" class="mr-1.5 text-emerald-600"> Extra ontwikkeling nodig</label>
+              </div>
+              <textarea rows="2" data-field="tussen-opm-doel5" placeholder="Opmerkingen..." class="w-full border border-gray-300 rounded p-1.5 text-xs focus:outline-none"></textarea>
+            </div>
+            <!-- Doel 6 -->
+            <div>
+              <h3 class="font-bold text-sm text-gray-900 mb-2">Doel 6 — Kennisdeling en Verbeteringen</h3>
+              <div class="flex flex-wrap gap-4 mb-2">
+                <label class="flex items-center text-xs text-gray-700"><input type="radio" name="status_doel6" value="op-schema" class="mr-1.5 text-emerald-600"> Op schema</label>
+                <label class="flex items-center text-xs text-gray-700"><input type="radio" name="status_doel6" value="voor-op-schema" class="mr-1.5 text-emerald-600"> Voor op schema</label>
+                <label class="flex items-center text-xs text-gray-700"><input type="radio" name="status_doel6" value="extra-ontwikkeling" class="mr-1.5 text-emerald-600"> Extra ontwikkeling nodig</label>
+              </div>
+              <textarea rows="2" data-field="tussen-opm-doel6" placeholder="Opmerkingen..." class="w-full border border-gray-300 rounded p-1.5 text-xs focus:outline-none"></textarea>
+            </div>
+          </div>
+        </section>
+
+        <!-- PERSOONLIJKE ONTWIKKELDOELEN TRAINEE -->
+        <section class="border border-gray-200 rounded-lg p-5">
+          <h2 class="text-lg font-bold brand-green-text mb-4">Persoonlijke Ontwikkeldoelen Trainee</h2>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div>
+              <h3 class="font-bold text-sm text-gray-900 mb-2">Persoonlijk doel 1</h3>
+              <div class="flex flex-wrap gap-3 mb-2">
+                <label class="flex items-center text-xs text-gray-700"><input type="radio" name="pstatus1" value="op-schema" class="mr-1.5 text-emerald-600"> Op schema</label>
+                <label class="flex items-center text-xs text-gray-700"><input type="radio" name="pstatus1" value="behaald" class="mr-1.5 text-emerald-600"> Behaald</label>
+                <label class="flex items-center text-xs text-gray-700"><input type="radio" name="pstatus1" value="extra-aandacht" class="mr-1.5 text-emerald-600"> Extra aandacht nodig</label>
+              </div>
+              <textarea rows="2" data-field="tussen-ptoelicht1" placeholder="Toelichting..." class="w-full border border-gray-300 rounded p-1.5 text-xs focus:outline-none"></textarea>
+            </div>
+            <div>
+              <h3 class="font-bold text-sm text-gray-900 mb-2">Persoonlijk doel 2</h3>
+              <div class="flex flex-wrap gap-3 mb-2">
+                <label class="flex items-center text-xs text-gray-700"><input type="radio" name="pstatus2" value="op-schema" class="mr-1.5 text-emerald-600"> Op schema</label>
+                <label class="flex items-center text-xs text-gray-700"><input type="radio" name="pstatus2" value="behaald" class="mr-1.5 text-emerald-600"> Behaald</label>
+                <label class="flex items-center text-xs text-gray-700"><input type="radio" name="pstatus2" value="extra-aandacht" class="mr-1.5 text-emerald-600"> Extra aandacht nodig</label>
+              </div>
+              <textarea rows="2" data-field="tussen-ptoelicht2" placeholder="Toelichting..." class="w-full border border-gray-300 rounded p-1.5 text-xs focus:outline-none"></textarea>
+            </div>
+            <div>
+              <h3 class="font-bold text-sm text-gray-900 mb-2">Persoonlijk doel 3</h3>
+              <div class="flex flex-wrap gap-3 mb-2">
+                <label class="flex items-center text-xs text-gray-700"><input type="radio" name="pstatus3" value="op-schema" class="mr-1.5 text-emerald-600"> Op schema</label>
+                <label class="flex items-center text-xs text-gray-700"><input type="radio" name="pstatus3" value="behaald" class="mr-1.5 text-emerald-600"> Behaald</label>
+                <label class="flex items-center text-xs text-gray-700"><input type="radio" name="pstatus3" value="extra-aandacht" class="mr-1.5 text-emerald-600"> Extra aandacht nodig</label>
+              </div>
+              <textarea rows="2" data-field="tussen-ptoelicht3" placeholder="Toelichting..." class="w-full border border-gray-300 rounded p-1.5 text-xs focus:outline-none"></textarea>
+            </div>
+          </div>
+        </section>
+
+        <!-- BEGELEIDEROBSERVATIE -->
+        <section class="border border-gray-200 rounded-lg p-5">
+          <h2 class="text-lg font-bold brand-green-text mb-4">Begeleiderobservatie</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-semibold text-gray-700 mb-1">Sterke punten</label>
+              <textarea rows="3" data-field="tussen-sterk" placeholder="Beschrijf..." class="w-full border border-gray-300 rounded p-2 text-sm focus:outline-none focus:ring-1 brand-green-ring"></textarea>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-gray-700 mb-1">Ontwikkelpunten voor tweede helft traject</label>
+              <textarea rows="3" data-field="tussen-ontwikkel" placeholder="Beschrijf..." class="w-full border border-gray-300 rounded p-2 text-sm focus:outline-none focus:ring-1 brand-green-ring"></textarea>
+            </div>
+          </div>
+        </section>
+
+        <!-- NIEUWE AFSPRAKEN -->
+        <section class="border border-gray-200 rounded-lg p-5 overflow-x-auto">
+          <h2 class="text-lg font-bold brand-green-text mb-4">Nieuwe Afspraken</h2>
+          <table class="w-full min-w-[600px] border-collapse text-left text-xs">
+            <thead>
+              <tr class="brand-green-bg text-white">
+                <th class="p-2 border border-emerald-700">Onderwerp</th>
+                <th class="p-2 border border-emerald-700">Actie</th>
+                <th class="p-2 border border-emerald-700 w-36">Deadline</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="bg-white">
+                <td class="p-1 border border-gray-200"><input type="text" data-field="tussen-afspraak1-onderwerp" class="w-full p-1 bg-transparent border-0 focus:ring-0 text-xs"></td>
+                <td class="p-1 border border-gray-200"><input type="text" data-field="tussen-afspraak1-actie" class="w-full p-1 bg-transparent border-0 focus:ring-0 text-xs"></td>
+                <td class="p-1 border border-gray-200"><input type="date" data-field="tussen-afspraak1-deadline" class="w-full p-1 bg-transparent border-0 text-xs"></td>
+              </tr>
+              <tr class="bg-gray-50">
+                <td class="p-1 border border-gray-200"><input type="text" data-field="tussen-afspraak2-onderwerp" class="w-full p-1 bg-transparent border-0 focus:ring-0 text-xs"></td>
+                <td class="p-1 border border-gray-200"><input type="text" data-field="tussen-afspraak2-actie" class="w-full p-1 bg-transparent border-0 focus:ring-0 text-xs"></td>
+                <td class="p-1 border border-gray-200"><input type="date" data-field="tussen-afspraak2-deadline" class="w-full p-1 bg-transparent border-0 text-xs"></td>
+              </tr>
+              <tr class="bg-white">
+                <td class="p-1 border border-gray-200"><input type="text" data-field="tussen-afspraak3-onderwerp" class="w-full p-1 bg-transparent border-0 focus:ring-0 text-xs"></td>
+                <td class="p-1 border border-gray-200"><input type="text" data-field="tussen-afspraak3-actie" class="w-full p-1 bg-transparent border-0 focus:ring-0 text-xs"></td>
+                <td class="p-1 border border-gray-200"><input type="date" data-field="tussen-afspraak3-deadline" class="w-full p-1 bg-transparent border-0 text-xs"></td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <!-- CONCLUSIE TUSSENEVALUATIE -->
+        <section class="border border-gray-200 rounded-lg p-5">
+          <h2 class="text-lg font-bold brand-green-text mb-4">Conclusie Tussenevaluatie</h2>
+          <div class="flex flex-wrap gap-4 mb-3">
+            <label class="flex items-center text-sm text-gray-700"><input type="radio" name="conclusie_tussen" value="volgens-verwachting" class="mr-2 text-emerald-600"> Ontwikkelt zich volgens verwachting</label>
+            <label class="flex items-center text-sm text-gray-700"><input type="radio" name="conclusie_tussen" value="boven-verwachting" class="mr-2 text-emerald-600"> Ontwikkelt zich boven verwachting</label>
+            <label class="flex items-center text-sm text-gray-700"><input type="radio" name="conclusie_tussen" value="extra-begeleiding" class="mr-2 text-emerald-600"> Extra begeleiding noodzakelijk</label>
+            <label class="flex items-center text-sm text-gray-700"><input type="radio" name="conclusie_tussen" value="aandachtspunten" class="mr-2 text-emerald-600"> Aandachtspunten besproken</label>
+          </div>
+          <label class="block text-xs font-semibold text-gray-700 mb-1">Toelichting:</label>
+          <textarea rows="3" data-field="tussen-conclusie-toelichting" placeholder="Beschrijf..." class="w-full border border-gray-300 rounded p-2 text-sm focus:outline-none focus:ring-1 brand-green-ring"></textarea>
+        </section>
+
+      </form>
+    </div>
+
+    <!-- ======================================================= -->
+    <!-- TAB 3: EINDEVALUATIE & CONTRACTADVIES                     -->
+    <!-- ======================================================= -->
+    <div id="tab-eind" class="tab-panel">
+      <h2 class="print-only text-2xl font-bold brand-green-text mb-6">3. Eindevaluatie &amp; Contractadvies</h2>
+      <form class="space-y-8">
+
+        <!-- ALGEMENE GEGEVENS -->
+        <section class="border border-gray-200 rounded-lg p-5">
+          <h2 class="text-lg font-bold brand-green-text mb-4">Algemene Gegevens</h2>
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div>
+              <label class="block text-xs font-semibold text-gray-700 mb-1">Naam trainee</label>
+              <input type="text" data-sync="naam-trainee" placeholder="Vul naam in" class="w-full border border-gray-300 rounded p-2 text-sm focus:outline-none focus:ring-1 brand-green-ring">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-gray-700 mb-1">Datum evaluatie</label>
+              <input type="date" data-field="eind-datum" class="w-full border border-gray-300 rounded p-2 text-sm focus:outline-none focus:ring-1 brand-green-ring">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-gray-700 mb-1">Begeleider</label>
+              <input type="text" data-sync="begeleider" placeholder="Vul begeleider in" class="w-full border border-gray-300 rounded p-2 text-sm focus:outline-none focus:ring-1 brand-green-ring">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-gray-700 mb-1">Traject</label>
+              <input type="text" data-sync-display="duration" readonly placeholder="3 of 6 maanden" class="w-full border border-gray-300 rounded p-2 text-sm bg-gray-100">
+            </div>
+          </div>
+          <label class="flex items-center text-sm text-gray-700 mt-3">
+            <input type="checkbox" data-field="eind-moment-eindbeoordeling" class="mr-2 text-emerald-600"> Evaluatiemoment: Eindbeoordeling
+          </label>
+        </section>
+
+        <!-- ZELFREFLECTIE TRAINEE -->
+        <section class="border border-gray-200 rounded-lg p-5">
+          <h2 class="text-lg font-bold brand-green-text mb-4">Zelfreflectie Trainee</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-semibold text-gray-700 mb-1">Wat heb je geleerd tijdens het leerwerktraject?</label>
+              <textarea rows="3" data-field="eind-geleerd" placeholder="Beschrijf..." class="w-full border border-gray-300 rounded p-2 text-sm focus:outline-none focus:ring-1 brand-green-ring"></textarea>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-gray-700 mb-1">Welke ontwikkeling heb je het meest doorgemaakt?</label>
+              <textarea rows="3" data-field="eind-ontwikkeling" placeholder="Beschrijf..." class="w-full border border-gray-300 rounded p-2 text-sm focus:outline-none focus:ring-1 brand-green-ring"></textarea>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-gray-700 mb-1">Waar ben je trots op?</label>
+              <textarea rows="3" data-field="eind-trots" placeholder="Beschrijf..." class="w-full border border-gray-300 rounded p-2 text-sm focus:outline-none focus:ring-1 brand-green-ring"></textarea>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-gray-700 mb-1">Wat wil je verder ontwikkelen?</label>
+              <textarea rows="3" data-field="eind-verder" placeholder="Beschrijf..." class="w-full border border-gray-300 rounded p-2 text-sm focus:outline-none focus:ring-1 brand-green-ring"></textarea>
+            </div>
+          </div>
+        </section>
+
+        <!-- EINDBEOORDELING ONTWIKKELDOELEN -->
+        <section class="border border-gray-200 rounded-lg p-5">
+          <h2 class="text-lg font-bold brand-green-text mb-4">Eindbeoordeling Ontwikkeldoelen</h2>
+          <div class="space-y-4">
+            <div class="border-b pb-4">
+              <h3 class="font-bold text-sm text-gray-900 mb-2">Doel 1 — Vakinhoudelijke kennis Burgerzaken</h3>
+              <div class="flex flex-wrap gap-4 mb-2">
+                <label class="flex items-center text-xs text-gray-700"><input type="radio" name="eind_doel1" value="behaald" class="mr-1.5 text-emerald-600"> Behaald</label>
+                <label class="flex items-center text-xs text-gray-700"><input type="radio" name="eind_doel1" value="gedeeltelijk-behaald" class="mr-1.5 text-emerald-600"> Gedeeltelijk behaald</label>
+                <label class="flex items-center text-xs text-gray-700"><input type="radio" name="eind_doel1" value="niet-behaald" class="mr-1.5 text-emerald-600"> Niet behaald</label>
+              </div>
+              <textarea rows="2" data-field="eind-toelicht-doel1" placeholder="Toelichting..." class="w-full border border-gray-300 rounded p-1.5 text-xs focus:outline-none"></textarea>
+            </div>
+            <div class="border-b pb-4">
+              <h3 class="font-bold text-sm text-gray-900 mb-2">Doel 2 — Meldingenbeheer, Intake en Analyse</h3>
+              <div class="flex flex-wrap gap-4 mb-2">
+                <label class="flex items-center text-xs text-gray-700"><input type="radio" name="eind_doel2" value="behaald" class="mr-1.5 text-emerald-600"> Behaald</label>
+                <label class="flex items-center text-xs text-gray-700"><input type="radio" name="eind_doel2" value="gedeeltelijk-behaald" class="mr-1.5 text-emerald-600"> Gedeeltelijk behaald</label>
+                <label class="flex items-center text-xs text-gray-700"><input type="radio" name="eind_doel2" value="niet-behaald" class="mr-1.5 text-emerald-600"> Niet behaald</label>
+              </div>
+              <textarea rows="2" data-field="eind-toelicht-doel2" placeholder="Toelichting..." class="w-full border border-gray-300 rounded p-1.5 text-xs focus:outline-none"></textarea>
+            </div>
+            <div class="border-b pb-4">
+              <h3 class="font-bold text-sm text-gray-900 mb-2">Doel 3 — Klantgerichtheid en Communicatie</h3>
+              <div class="flex flex-wrap gap-4 mb-2">
+                <label class="flex items-center text-xs text-gray-700"><input type="radio" name="eind_doel3" value="behaald" class="mr-1.5 text-emerald-600"> Behaald</label>
+                <label class="flex items-center text-xs text-gray-700"><input type="radio" name="eind_doel3" value="gedeeltelijk-behaald" class="mr-1.5 text-emerald-600"> Gedeeltelijk behaald</label>
+                <label class="flex items-center text-xs text-gray-700"><input type="radio" name="eind_doel3" value="niet-behaald" class="mr-1.5 text-emerald-600"> Niet behaald</label>
+              </div>
+              <textarea rows="2" data-field="eind-toelicht-doel3" placeholder="Toelichting..." class="w-full border border-gray-300 rounded p-1.5 text-xs focus:outline-none"></textarea>
+            </div>
+            <div class="border-b pb-4">
+              <h3 class="font-bold text-sm text-gray-900 mb-2">Doel 4 — Werkhouding en Samenwerking</h3>
+              <div class="flex flex-wrap gap-4 mb-2">
+                <label class="flex items-center text-xs text-gray-700"><input type="radio" name="eind_doel4" value="behaald" class="mr-1.5 text-emerald-600"> Behaald</label>
+                <label class="flex items-center text-xs text-gray-700"><input type="radio" name="eind_doel4" value="gedeeltelijk-behaald" class="mr-1.5 text-emerald-600"> Gedeeltelijk behaald</label>
+                <label class="flex items-center text-xs text-gray-700"><input type="radio" name="eind_doel4" value="niet-behaald" class="mr-1.5 text-emerald-600"> Niet behaald</label>
+              </div>
+              <textarea rows="2" data-field="eind-toelicht-doel4" placeholder="Toelichting..." class="w-full border border-gray-300 rounded p-1.5 text-xs focus:outline-none"></textarea>
+            </div>
+            <div class="border-b pb-4">
+              <h3 class="font-bold text-sm text-gray-900 mb-2">Doel 5 — Zelfstandigheid en Eigenaarschap</h3>
+              <div class="flex flex-wrap gap-4 mb-2">
+                <label class="flex items-center text-xs text-gray-700"><input type="radio" name="eind_doel5" value="behaald" class="mr-1.5 text-emerald-600"> Behaald</label>
+                <label class="flex items-center text-xs text-gray-700"><input type="radio" name="eind_doel5" value="gedeeltelijk-behaald" class="mr-1.5 text-emerald-600"> Gedeeltelijk behaald</label>
+                <label class="flex items-center text-xs text-gray-700"><input type="radio" name="eind_doel5" value="niet-behaald" class="mr-1.5 text-emerald-600"> Niet behaald</label>
+              </div>
+              <textarea rows="2" data-field="eind-toelicht-doel5" placeholder="Toelichting..." class="w-full border border-gray-300 rounded p-1.5 text-xs focus:outline-none"></textarea>
+            </div>
+            <div>
+              <h3 class="font-bold text-sm text-gray-900 mb-2">Doel 6 — Kennisdeling en Verbeteringen</h3>
+              <div class="flex flex-wrap gap-4 mb-2">
+                <label class="flex items-center text-xs text-gray-700"><input type="radio" name="eind_doel6" value="behaald" class="mr-1.5 text-emerald-600"> Behaald</label>
+                <label class="flex items-center text-xs text-gray-700"><input type="radio" name="eind_doel6" value="gedeeltelijk-behaald" class="mr-1.5 text-emerald-600"> Gedeeltelijk behaald</label>
+                <label class="flex items-center text-xs text-gray-700"><input type="radio" name="eind_doel6" value="niet-behaald" class="mr-1.5 text-emerald-600"> Niet behaald</label>
+              </div>
+              <textarea rows="2" data-field="eind-toelicht-doel6" placeholder="Toelichting..." class="w-full border border-gray-300 rounded p-1.5 text-xs focus:outline-none"></textarea>
+            </div>
+          </div>
+        </section>
+
+        <!-- BEOORDELING COMPETENTIES -->
+        <section class="border border-gray-200 rounded-lg p-5">
+          <h2 class="text-lg font-bold brand-green-text mb-4">Beoordeling Competenties</h2>
+          <div class="space-y-4">
+            <div class="border-b pb-4">
+              <h3 class="font-bold text-sm text-gray-900 mb-2">Leervermogen</h3>
+              <div class="flex flex-wrap gap-4 mb-2">
+                <label class="flex items-center text-xs text-gray-700"><input type="radio" name="comp_leer" value="uitstekend" class="mr-1.5 text-emerald-600"> Uitstekend</label>
+                <label class="flex items-center text-xs text-gray-700"><input type="radio" name="comp_leer" value="goed" class="mr-1.5 text-emerald-600"> Goed</label>
+                <label class="flex items-center text-xs text-gray-700"><input type="radio" name="comp_leer" value="voldoende" class="mr-1.5 text-emerald-600"> Voldoende</label>
+                <label class="flex items-center text-xs text-gray-700"><input type="radio" name="comp_leer" value="onvoldoende" class="mr-1.5 text-emerald-600"> Onvoldoende</label>
+              </div>
+              <textarea rows="2" data-field="eind-toelicht-leer" placeholder="Toelichting..." class="w-full border border-gray-300 rounded p-1.5 text-xs focus:outline-none"></textarea>
+            </div>
+            <div class="border-b pb-4">
+              <h3 class="font-bold text-sm text-gray-900 mb-2">Analytisch vermogen</h3>
+              <div class="flex flex-wrap gap-4 mb-2">
+                <label class="flex items-center text-xs text-gray-700"><input type="radio" name="comp_an" value="uitstekend" class="mr-1.5 text-emerald-600"> Uitstekend</label>
+                <label class="flex items-center text-xs text-gray-700"><input type="radio" name="comp_an" value="goed" class="mr-1.5 text-emerald-600"> Goed</label>
+                <label class="flex items-center text-xs text-gray-700"><input type="radio" name="comp_an" value="voldoende" class="mr-1.5 text-emerald-600"> Voldoende</label>
+                <label class="flex items-center text-xs text-gray-700"><input type="radio" name="comp_an" value="onvoldoende" class="mr-1.5 text-emerald-600"> Onvoldoende</label>
+              </div>
+              <textarea rows="2" data-field="eind-toelicht-an" placeholder="Toelichting..." class="w-full border border-gray-300 rounded p-1.5 text-xs focus:outline-none"></textarea>
+            </div>
+            <div class="border-b pb-4">
+              <h3 class="font-bold text-sm text-gray-900 mb-2">Klantcommunicatie</h3>
+              <div class="flex flex-wrap gap-4 mb-2">
+                <label class="flex items-center text-xs text-gray-700"><input type="radio" name="comp_comm" value="uitstekend" class="mr-1.5 text-emerald-600"> Uitstekend</label>
+                <label class="flex items-center text-xs text-gray-700"><input type="radio" name="comp_comm" value="goed" class="mr-1.5 text-emerald-600"> Goed</label>
+                <label class="flex items-center text-xs text-gray-700"><input type="radio" name="comp_comm" value="voldoende" class="mr-1.5 text-emerald-600"> Voldoende</label>
+                <label class="flex items-center text-xs text-gray-700"><input type="radio" name="comp_comm" value="onvoldoende" class="mr-1.5 text-emerald-600"> Onvoldoende</label>
+              </div>
+              <textarea rows="2" data-field="eind-toelicht-comm" placeholder="Toelichting..." class="w-full border border-gray-300 rounded p-1.5 text-xs focus:outline-none"></textarea>
+            </div>
+            <div class="border-b pb-4">
+              <h3 class="font-bold text-sm text-gray-900 mb-2">Samenwerking</h3>
+              <div class="flex flex-wrap gap-4 mb-2">
+                <label class="flex items-center text-xs text-gray-700"><input type="radio" name="comp_sam" value="uitstekend" class="mr-1.5 text-emerald-600"> Uitstekend</label>
+                <label class="flex items-center text-xs text-gray-700"><input type="radio" name="comp_sam" value="goed" class="mr-1.5 text-emerald-600"> Goed</label>
+                <label class="flex items-center text-xs text-gray-700"><input type="radio" name="comp_sam" value="voldoende" class="mr-1.5 text-emerald-600"> Voldoende</label>
+                <label class="flex items-center text-xs text-gray-700"><input type="radio" name="comp_sam" value="onvoldoende" class="mr-1.5 text-emerald-600"> Onvoldoende</label>
+              </div>
+              <textarea rows="2" data-field="eind-toelicht-sam" placeholder="Toelichting..." class="w-full border border-gray-300 rounded p-1.5 text-xs focus:outline-none"></textarea>
+            </div>
+            <div class="border-b pb-4">
+              <h3 class="font-bold text-sm text-gray-900 mb-2">Zelfstandigheid</h3>
+              <div class="flex flex-wrap gap-4 mb-2">
+                <label class="flex items-center text-xs text-gray-700"><input type="radio" name="comp_zelf" value="uitstekend" class="mr-1.5 text-emerald-600"> Uitstekend</label>
+                <label class="flex items-center text-xs text-gray-700"><input type="radio" name="comp_zelf" value="goed" class="mr-1.5 text-emerald-600"> Goed</label>
+                <label class="flex items-center text-xs text-gray-700"><input type="radio" name="comp_zelf" value="voldoende" class="mr-1.5 text-emerald-600"> Voldoende</label>
+                <label class="flex items-center text-xs text-gray-700"><input type="radio" name="comp_zelf" value="onvoldoende" class="mr-1.5 text-emerald-600"> Onvoldoende</label>
+              </div>
+              <textarea rows="2" data-field="eind-toelicht-zelf" placeholder="Toelichting..." class="w-full border border-gray-300 rounded p-1.5 text-xs focus:outline-none"></textarea>
+            </div>
+            <div>
+              <h3 class="font-bold text-sm text-gray-900 mb-2">Werkhouding &amp; Professionaliteit</h3>
+              <div class="flex flex-wrap gap-4 mb-2">
+                <label class="flex items-center text-xs text-gray-700"><input type="radio" name="comp_werk" value="uitstekend" class="mr-1.5 text-emerald-600"> Uitstekend</label>
+                <label class="flex items-center text-xs text-gray-700"><input type="radio" name="comp_werk" value="goed" class="mr-1.5 text-emerald-600"> Goed</label>
+                <label class="flex items-center text-xs text-gray-700"><input type="radio" name="comp_werk" value="voldoende" class="mr-1.5 text-emerald-600"> Voldoende</label>
+                <label class="flex items-center text-xs text-gray-700"><input type="radio" name="comp_werk" value="onvoldoende" class="mr-1.5 text-emerald-600"> Onvoldoende</label>
+              </div>
+              <textarea rows="2" data-field="eind-toelicht-werk" placeholder="Toelichting..." class="w-full border border-gray-300 rounded p-1.5 text-xs focus:outline-none"></textarea>
+            </div>
+          </div>
+        </section>
+
+        <!-- EINDVERWACHTINGEN -->
+        <section class="border border-gray-200 rounded-lg p-5">
+          <h2 class="text-lg font-bold brand-green-text mb-4">Eindverwachtingen</h2>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="border border-gray-200 rounded p-3 bg-gray-50/50">
+              <h3 class="font-bold text-sm text-gray-900 mb-2">Intakeproces</h3>
+              <div class="space-y-1 mb-2">
+                <label class="flex items-center text-xs text-gray-700"><input type="checkbox" data-field="eind-intake-cb1" class="mr-1.5 text-emerald-600"> Begrijpt intakeproces volledig</label>
+                <label class="flex items-center text-xs text-gray-700"><input type="checkbox" data-field="eind-intake-cb2" class="mr-1.5 text-emerald-600"> Kan intakeproces zelfstandig uitvoeren</label>
+                <label class="flex items-center text-xs text-gray-700"><input type="checkbox" data-field="eind-intake-cb3" class="mr-1.5 text-emerald-600"> Heeft extra begeleiding nodig</label>
+              </div>
+              <textarea rows="2" data-field="eind-opm-intake" placeholder="Opmerkingen..." class="w-full border border-gray-300 rounded p-1.5 text-xs focus:outline-none"></textarea>
+            </div>
+            <div class="border border-gray-200 rounded p-3 bg-gray-50/50">
+              <h3 class="font-bold text-sm text-gray-900 mb-2">Prioritering</h3>
+              <div class="space-y-1 mb-2">
+                <label class="flex items-center text-xs text-gray-700"><input type="checkbox" data-field="eind-prioritering-cb1" class="mr-1.5 text-emerald-600"> Kan prioriteit goed inschatten</label>
+                <label class="flex items-center text-xs text-gray-700"><input type="checkbox" data-field="eind-prioritering-cb2" class="mr-1.5 text-emerald-600"> Kan impact bepalen</label>
+                <label class="flex items-center text-xs text-gray-700"><input type="checkbox" data-field="eind-prioritering-cb3" class="mr-1.5 text-emerald-600"> Herkent P1 en kritieke meldingen</label>
+                <label class="flex items-center text-xs text-gray-700"><input type="checkbox" data-field="eind-prioritering-cb4" class="mr-1.5 text-emerald-600"> Weet welke acties direct nodig zijn</label>
+              </div>
+              <textarea rows="2" data-field="eind-opm-prioritering" placeholder="Opmerkingen..." class="w-full border border-gray-300 rounded p-1.5 text-xs focus:outline-none"></textarea>
+            </div>
+            <div class="border border-gray-200 rounded p-3 bg-gray-50/50">
+              <h3 class="font-bold text-sm text-gray-900 mb-2">Caseload</h3>
+              <div class="space-y-1 mb-2">
+                <label class="flex items-center text-xs text-gray-700"><input type="checkbox" data-field="eind-caseload-cb1" class="mr-1.5 text-emerald-600"> Beheert zelfstandig 8-12 actieve cases</label>
+                <label class="flex items-center text-xs text-gray-700"><input type="checkbox" data-field="eind-caseload-cb2" class="mr-1.5 text-emerald-600"> Heeft beperkte ondersteuning nodig</label>
+                <label class="flex items-center text-xs text-gray-700"><input type="checkbox" data-field="eind-caseload-cb3" class="mr-1.5 text-emerald-600"> Heeft intensieve ondersteuning nodig</label>
+              </div>
+              <textarea rows="2" data-field="eind-opm-caseload" placeholder="Opmerkingen..." class="w-full border border-gray-300 rounded p-1.5 text-xs focus:outline-none"></textarea>
+            </div>
+          </div>
+        </section>
+
+        <!-- ADVIES VERVOLG -->
+        <section class="border border-gray-200 rounded-lg p-5">
+          <h2 class="text-lg font-bold brand-green-text mb-4">Advies Vervolg</h2>
+          <div class="space-y-2 mb-4">
+            <label class="flex items-center text-sm text-gray-700"><input type="radio" name="advies_eind" value="geschikt" class="mr-2 text-emerald-600"> Geschikt voor contract Support Consultant 1</label>
+            <label class="flex items-center text-sm text-gray-700"><input type="radio" name="advies_eind" value="geschikt-ontwikkelplan" class="mr-2 text-emerald-600"> Geschikt voor contract met aanvullend ontwikkelplan</label>
+            <label class="flex items-center text-sm text-gray-700"><input type="radio" name="advies_eind" value="verlenging" class="mr-2 text-emerald-600"> Verlenging leerwerktraject wenselijk</label>
+            <label class="flex items-center text-sm text-gray-700"><input type="radio" name="advies_eind" value="niet-geschikt" class="mr-2 text-emerald-600"> Nog niet geschikt voor instroom</label>
+          </div>
+          <label class="block text-xs font-semibold text-gray-700 mb-1">Eindconclusie begeleider:</label>
+          <textarea rows="4" data-field="eind-conclusie" placeholder="Beschrijf je eindconclusie..." class="w-full border border-gray-300 rounded p-2 text-sm focus:outline-none focus:ring-1 brand-green-ring"></textarea>
+        </section>
+
+        <!-- SIGNATURES -->
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-8 border-t pt-8">
+          <div>
+            <h3 class="font-bold text-sm text-gray-900 mb-4 flex items-center gap-2">
+              <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
+              Handtekening trainee
+            </h3>
+            <div class="grid grid-cols-3 gap-4 items-end">
+              <div class="col-span-2">
+                <label class="block text-[10px] text-gray-500">Naam</label>
+                <div class="border-b border-gray-400 h-8"></div>
+              </div>
+              <div>
+                <label class="block text-[10px] text-gray-500">Datum</label>
+                <input type="date" data-field="handtekening-trainee-datum" class="w-full border-b border-gray-400 focus:outline-none text-xs p-1">
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <h3 class="font-bold text-sm text-gray-900 mb-4 flex items-center gap-2">
+              <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
+              Handtekening begeleider
+            </h3>
+            <div class="grid grid-cols-3 gap-4 items-end">
+              <div class="col-span-2">
+                <label class="block text-[10px] text-gray-500">Naam</label>
+                <div class="border-b border-gray-400 h-8"></div>
+              </div>
+              <div>
+                <label class="block text-[10px] text-gray-500">Datum</label>
+                <input type="date" data-field="handtekening-begeleider-datum" class="w-full border-b border-gray-400 focus:outline-none text-xs p-1">
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </form>
+    </div>
+
+    <!-- ACTIEBALK: OPSLAAN / INLADEN -->
+    <div id="actiebalk" class="flex justify-end items-center gap-3 pt-8 border-t mt-4">
+      <span id="actiebalk-status" class="text-xs text-gray-500"></span>
+      <input type="file" id="inladen-input" accept="application/json" class="hidden">
+      <button type="button" id="inladen-btn" class="bg-white text-gray-700 font-semibold text-sm px-6 py-2.5 rounded shadow border border-gray-300 hover:bg-gray-50 transition">
+        Inladen
+      </button>
+      <button type="button" id="opslaan-btn" class="brand-green-bg text-white font-semibold text-sm px-6 py-2.5 rounded shadow hover:bg-emerald-700 transition">
+        Opslaan
+      </button>
+    </div>
+
+  </div>
+
+  <script>
+    // --- Tab switching ---
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const tabPanels = document.querySelectorAll('.tab-panel');
+    tabButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        tabButtons.forEach(b => b.classList.remove('active'));
+        tabPanels.forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById(btn.dataset.tab).classList.add('active');
+      });
+    });
+
+    // --- 3 / 6 maanden schakelaar ---
+    const durationRadios = document.querySelectorAll('input[name="duration"]');
+    const durationBlocks = document.querySelectorAll('.duration-block');
+    const durationDisplays = document.querySelectorAll('[data-sync-display="duration"]');
+
+    function applyDuration(value) {
+      durationBlocks.forEach(block => {
+        block.classList.toggle('active', block.dataset.duration === value);
+      });
+      durationDisplays.forEach(el => {
+        el.value = value === '3' ? '3 maanden' : '6 maanden';
+      });
+    }
+
+    durationRadios.forEach(radio => {
+      radio.addEventListener('change', () => {
+        if (radio.checked) applyDuration(radio.value);
+      });
+    });
+
+    // Init on load
+    const checkedDuration = document.querySelector('input[name="duration"]:checked');
+    applyDuration(checkedDuration ? checkedDuration.value : '6');
+
+    // --- Gedeelde velden synchroniseren tussen tabs ---
+    function syncField(key, value) {
+      document.querySelectorAll(`[data-sync="${key}"]`).forEach(el => {
+        if (el.value !== value) el.value = value;
+      });
+    }
+
+    document.querySelectorAll('[data-sync]').forEach(el => {
+      el.addEventListener('input', () => {
+        const key = el.dataset.sync;
+        if (key === 'duration') return; // handled by duration radios above
+        syncField(key, el.value);
+      });
+    });
+
+    // --- Opslaan (export naar JSON) / Inladen (import uit JSON) ---
+    function collectFormData() {
+      const data = {};
+
+      // Tekst/datum/select/textarea velden via data-field, plus gesynchroniseerde velden via data-sync
+      document.querySelectorAll('[data-field]').forEach(el => {
+        data[el.dataset.field] = el.value;
+      });
+      document.querySelectorAll('[data-sync]').forEach(el => {
+        if (el.dataset.sync !== 'duration' && el.value) data[el.dataset.sync] = el.value;
+      });
+
+      // Checkboxen (los van data-field, want die kunnen ook op naam voorkomen)
+      document.querySelectorAll('input[type="checkbox"][data-field]').forEach(el => {
+        data[el.dataset.field] = el.checked;
+      });
+
+      // Radiogroepen: elke unieke 'name' van een radio-input wordt apart bewaard
+      const radioNames = new Set();
+      document.querySelectorAll('input[type="radio"]').forEach(el => radioNames.add(el.name));
+      radioNames.forEach(name => {
+        const checked = document.querySelector(`input[type="radio"][name="${name}"]:checked`);
+        if (checked) data['radio:' + name] = checked.value;
+      });
+
+      return data;
+    }
+
+    function applyFormData(data) {
+      Object.entries(data).forEach(([key, value]) => {
+        if (key.startsWith('radio:')) {
+          const name = key.slice('radio:'.length);
+          const target = document.querySelector(`input[type="radio"][name="${name}"][value="${CSS.escape(String(value))}"]`);
+          if (target) {
+            target.checked = true;
+            target.dispatchEvent(new Event('change', { bubbles: true }));
+          }
+          return;
+        }
+        document.querySelectorAll(`[data-field="${key}"]`).forEach(el => {
+          if (el.type === 'checkbox') el.checked = !!value;
+          else el.value = value;
+        });
+        document.querySelectorAll(`[data-sync="${key}"]`).forEach(el => {
+          el.value = value;
+        });
+      });
+    }
+
+    function showStatus(message) {
+      const status = document.getElementById('actiebalk-status');
+      status.textContent = message;
+      setTimeout(() => { if (status.textContent === message) status.textContent = ''; }, 4000);
+    }
+
+    document.getElementById('opslaan-btn').addEventListener('click', () => {
+      const data = collectFormData();
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const naam = (data['naam-trainee'] || 'pop-data').trim().replace(/[^a-z0-9]+/gi, '-').replace(/^-+|-+$/g, '') || 'pop-data';
+      const datum = (data['startdatum'] || data['tussen-datum'] || data['eind-datum'] || '').replace(/[^0-9-]/g, '');
+      const filename = `${naam}${datum ? '-' + datum : ''}.json`;
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+      showStatus(`Opgeslagen als ${filename}`);
+    });
+
+    document.getElementById('inladen-btn').addEventListener('click', () => {
+      document.getElementById('inladen-input').click();
+    });
+
+    document.getElementById('inladen-input').addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = () => {
+        try {
+          const data = JSON.parse(reader.result);
+          applyFormData(data);
+          showStatus(`Ingeladen: ${file.name}`);
+        } catch (err) {
+          showStatus('Kon bestand niet lezen: ongeldig JSON-formaat.');
+        }
+      };
+      reader.readAsText(file);
+      e.target.value = '';
+    });
+  </script>
+
+</body>
+</html>
